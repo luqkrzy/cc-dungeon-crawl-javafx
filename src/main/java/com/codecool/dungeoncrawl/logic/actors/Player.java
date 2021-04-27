@@ -6,6 +6,8 @@ public class Player extends Actor {
     public Player(Cell cell) {
         super(cell);
         setHealth(100);
+        setDefense(5);
+        setAttack(10);
     }
 
     @Override

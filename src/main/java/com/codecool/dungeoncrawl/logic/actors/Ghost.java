@@ -2,12 +2,19 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.map.Cell;
 
-public class Ghost extends Actor {
+public class Ghost extends Monster {
 
 
     public Ghost(Cell cell) {
         super(cell);
-        setHealth(80);;
+        setHealth(80);
+        ;
+    }
+
+    @Override
+    public void initMove() {
+        move(1, 1);
+
     }
 
     @Override

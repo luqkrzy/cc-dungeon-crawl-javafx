@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl.gui;
-import com.codecool.dungeoncrawl.map.Tiles;
+
+import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
+import com.codecool.dungeoncrawl.map.Tiles;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -14,18 +16,26 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.List;
+
 public class Gui extends Pane {
-    private final GameMap map = MapLoader.loadMap();
-    private final Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
-    private final GraphicsContext context = canvas.getGraphicsContext2D();
-    private final RightGridPane rightGridPane = new RightGridPane();
-    private final BottomGridPane bottomGridPane = new BottomGridPane();
-    private final InventoryMenu inventoryMenu = new InventoryMenu(context, canvas.getWidth()/ 2, canvas.getHeight() / 2-50);
+    private final GameMap map;
+    private final Canvas canvas;
+    private final GraphicsContext context;
+    private final RightGridPane rightGridPane;
+    private final BottomGridPane bottomGridPane;
+    private final InventoryMenu inventoryMenu;
     // private final Timeline timeline;
 
     public Gui() {
+        this.map = MapLoader.loadMap();
+        this.canvas = new Canvas(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH);
+        this.context = canvas.getGraphicsContext2D();
+        this.rightGridPane = new RightGridPane();
+        this.bottomGridPane = new BottomGridPane();
+        this.inventoryMenu = new InventoryMenu(context, canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
         // this.timeline = initTimeline();
     }
 
@@ -34,10 +44,17 @@ public class Gui extends Pane {
                 event -> refresh()));
     }
 
-
     public void start(Stage primaryStage) throws Exception {
         BorderPane borderPane = setUpBorderPane();
         setUpStage(primaryStage, borderPane);
+    }
+
+    private BorderPane setUpBorderPane() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(rightGridPane.getUi());
+        borderPane.setBottom(bottomGridPane.getUi());
+        return borderPane;
     }
 
     private void setUpStage(Stage primaryStage, BorderPane borderPane) {
@@ -51,30 +68,16 @@ public class Gui extends Pane {
         primaryStage.show();
     }
 
-    private BorderPane setUpBorderPane() {
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(canvas);
-        borderPane.setRight(rightGridPane.getUi());
-        borderPane.setBottom(bottomGridPane.getUi());
-        return borderPane;
-    }
-
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         lookForItem(map.getPlayer().getCell());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
-                if (cell.isActor()) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
-                } else if (cell.isItem()) {
-                    Tiles.drawTile(context, cell.getItem(), x, y);
-                }  else {
-                    Tiles.drawTile(context, cell, x, y);
-                }
-            }
+        map.refresh(context);
+        List<Monster> monsters = map.getMonsters();
+        for (Monster monster : monsters) {
+            monster.initMove();
         }
+
         rightGridPane.getHealthLabel().setText("" + map.getPlayer().getHealth());
     }
 
@@ -83,14 +86,12 @@ public class Gui extends Pane {
     //     timeline.play();
     // }
 
-
     private void lookForItem(Cell cell) {
         if (cell.isActorAndItemSamePosition()) {
             rightGridPane.showPickUpButton(cell);
         } else {
             rightGridPane.hidePickUpButton();
         }
-
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

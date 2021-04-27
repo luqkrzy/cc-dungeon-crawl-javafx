@@ -29,7 +29,7 @@ public class MapLoader {
                         case '.' -> cell.setType(CellType.FLOOR);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            map.addMonster(new Skeleton(cell));
                         }
                         case '@' -> {
                             cell.setType(CellType.FLOOR);
@@ -41,7 +41,7 @@ public class MapLoader {
                         }
                         case 'g' -> {
                             cell.setType(CellType.FLOOR);
-                            new Ghost(cell);
+                            map.addMonster(new Ghost(cell));
                         }
                         case '>' -> {
                             cell.setType(CellType.FLOOR);
