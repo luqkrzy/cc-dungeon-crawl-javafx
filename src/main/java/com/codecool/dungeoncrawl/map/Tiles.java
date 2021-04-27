@@ -30,13 +30,19 @@ public class Tiles {
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("ghost", new Tile(27, 6));
         tileMap.put("sword", new Tile(0, 28));
-
-
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
         Tile tile = tileMap.get(d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
                 x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+    }
+
+
+    public static void drawTile(GraphicsContext context, String letter, int x, int y) {
+        String lowerName = letter.toLowerCase();
+        Tile tile = tileMap.get(lowerName);
+        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
+                x * TILE_WIDTH-10, y * TILE_WIDTH, TILE_WIDTH*0.5, TILE_WIDTH*0.5);
     }
 }

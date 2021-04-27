@@ -1,15 +1,21 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.Drawable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    private List<Item> inventory;
 
     public Actor(Cell cell) {
         this.cell = cell;
+        this.inventory = new ArrayList<>();
         this.cell.setActor(this);
     }
 
@@ -44,5 +50,13 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void addItem(Item item) {
+        inventory.add(item);
     }
 }

@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.map;
+import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
@@ -51,10 +52,12 @@ public class Cell implements Drawable {
     }
 
     public boolean isActorAndItemSamePosition() {
-        return isItem() && getActor().getX() == getItem().getX() && getActor().getY() == getItem().getY();
+        boolean sameXY = isItem() && getActor().getX() == getItem().getX() && getActor().getY() == getItem().getY();
+        if (sameXY) {
+            BottomGridPane.log("You see the " + item.getName());
+        }
+        return sameXY;
     }
-
-
 
 
     public boolean isActor(int iX, int iY) {
