@@ -25,8 +25,9 @@ public abstract class Monster extends Actor {
 
     public void attack(Player player) {
         BottomGridPane.log("attack!");
-        fightEngine.fight(player, this);
+        fightEngine.fight2(player, this);
 
     }
+
 
 }

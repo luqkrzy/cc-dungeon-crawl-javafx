@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Gui extends Pane {
@@ -72,13 +73,16 @@ public class Gui extends Pane {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         lookForItem(map.getPlayer().getCell());
+        moveMonsters();
         map.refresh(context);
-        List<Monster> monsters = map.getMonsters();
-        for (Monster monster : monsters) {
-            monster.initMove();
-        }
-
         rightGridPane.getHealthLabel().setText("" + map.getPlayer().getHealth());
+    }
+
+    private void moveMonsters() {
+        List<Monster> monsters = map.getMonsters();
+        monsters.removeIf(monster -> monster.getCell().getActor() == null);
+        monsters.removeIf(monster -> !monster.isAlive());
+        monsters.forEach(Monster::initMove);
     }
 
     // public void keepRefreshing() {

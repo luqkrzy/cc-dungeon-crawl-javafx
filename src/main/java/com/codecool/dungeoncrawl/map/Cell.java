@@ -71,7 +71,6 @@ public class Cell implements Drawable {
 
     public List<Cell> getNeighbors() {
         List<Cell> neighbors = new ArrayList<>();
-        int[] coords = {-1, 1};
         neighbors.add(gameMap.getCell(x + 1, y));
         neighbors.add(gameMap.getCell(x - 1, y));
         neighbors.add(gameMap.getCell(x, y + 1));

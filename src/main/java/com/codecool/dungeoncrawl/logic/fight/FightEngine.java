@@ -13,10 +13,8 @@ public class FightEngine {
 
     public void fight(Player player, Monster monster) {
 
-        if (player.isAlive() || monster.isAlive()) {
             boolean b = random.nextBoolean();
             round(b ? player : monster, b ? monster : player);
-        }
     }
 
     public void round(Actor attacker, Actor defender) {
@@ -34,7 +32,31 @@ public class FightEngine {
             damageCaused = defenderAtk - attackerDef;
             attacker.setHealth(attackerHealth - damageCaused);
         } else {
-            defender.getCell().setActor(null);
+            defender.die();
+        }
+
+    }
+
+
+    public void fight2(Player player, Monster monster) {
+        int attackerAtk = player.getAttack();
+        int attackerDef = player.getDefense();
+        int attackerHealth = player.getHealth();
+
+        int defenderAtk = monster.getAttack();
+        int defenderDef = monster.getDefense();
+        int defenderHealth = monster.getHealth();
+        int damageCaused = attackerAtk - defenderDef;
+        monster.setHealth(defenderHealth - damageCaused);
+        BottomGridPane.log(String.format("%s's hit caused %d damage to %s", player.getInstanceName(), damageCaused, monster.getInstanceName()));
+        if (monster.isAlive()) {
+            damageCaused = defenderAtk - attackerDef;
+            BottomGridPane.log(String.format("%s's hit caused %d damage to %s", monster.getInstanceName(), damageCaused, player.getInstanceName()));
+            player.setHealth(attackerHealth - damageCaused);
+        } else {
+            monster.die();
+            BottomGridPane.log(String.format("%s died", monster.getInstanceName()));
+
         }
 
     }

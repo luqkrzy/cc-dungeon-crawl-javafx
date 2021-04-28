@@ -11,7 +11,7 @@ public class Skeleton extends Monster {
     public Skeleton(Cell cell) {
         super(cell);
         setHealth(30);
-        setAttack(3);
+        setAttack(10);
         setDefense(0);
     }
 

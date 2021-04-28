@@ -14,7 +14,7 @@ public abstract class Actor implements Drawable {
     private int health = 10;
     private int defense;
     private int attack;
-    private List<Item> inventory;
+    private final List<Item> inventory;
     protected FightEngine fightEngine;
 
     public Actor(Cell cell) {
@@ -25,16 +25,21 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        boolean outOfBounds = cell.isOutOfBounds(cell.getX() + dx, cell.getY() + dy);
-        boolean isActor = cell.isActor(cell.getX() + dx, cell.getY() + dy);
-        if ((!outOfBounds && !isActor) && nextCell.isPassable()) {
-            cell.setActor(null);
-            nextCell.setActor(this);
-            cell = nextCell;
-            // } else if (nextCell.isActor() &&  nextCell.isMonster()) {
-            //     fightEngine.fight((Player) cell.getActor(), (Monster) nextCell.getActor());
+        if (health <= 0) {
+            die();
+        } else {
+            Cell nextCell = cell.getNeighbor(dx, dy);
+            boolean outOfBounds = cell.isOutOfBounds(cell.getX() + dx, cell.getY() + dy);
+            boolean isActor = cell.isActor(cell.getX() + dx, cell.getY() + dy);
+            if ((!outOfBounds && !isActor) && nextCell.isPassable()) {
+                cell.setActor(null);
+                nextCell.setActor(this);
+                cell = nextCell;
+                // } else if (nextCell.isActor() &&  nextCell.isMonster()) {
+                //     fightEngine.fight((Player) cell.getActor(), (Monster) nextCell.getActor());
+            }
         }
+
     }
 
     public int getHealth() {
@@ -88,4 +93,10 @@ public abstract class Actor implements Drawable {
     public String getInstanceName() {
         return this.getClass().getSimpleName();
     }
+
+    public void die() {
+        cell.setActor(null);
+        ;
+    }
+
 }
