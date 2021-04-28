@@ -1,15 +1,16 @@
 package com.codecool.dungeoncrawl.gui;
 
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 
 public class RightGridPane extends Pane {
     // private final GridPane ui = new GridPane();
     private final Label healthLabel = new Label();
+    private final Label attackLabel = new Label();
+    private final Label defenseLabel = new Label();
     private final Button button = new Button("Pick Up!");
 
     public RightGridPane() {
@@ -21,7 +22,12 @@ public class RightGridPane extends Pane {
         ui.setPadding(new Insets(10));
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
-        ui.add(new Label(" "), 0, 1);
+        ui.add(new Label("Attack: "), 0, 1);
+        ui.add(attackLabel, 1, 1);
+        ui.add(new Label("Defense: "), 0, 2);
+        ui.add(defenseLabel, 1, 2);
+
+        ui.add(new Label(" "), 0, 3);
     }
 
     public void showPickUpButton(Cell cell) {
@@ -29,11 +35,8 @@ public class RightGridPane extends Pane {
         ui.add(button, 1, 20);
         button.setOnAction(actionEvent -> {
             ui.getChildren().remove(button);
-            if (cell.isItem() && cell.isActor()) {
-                cell.getActor().addItem(cell.getItem());
-                BottomGridPane.log("picked up: " + cell.getItem().getName());
-                cell.setItem(null);
-            }
+            Player player = (Player) cell.getActor();
+            player.addToInventory(cell);
         });
     }
 
@@ -47,5 +50,11 @@ public class RightGridPane extends Pane {
         return healthLabel;
     }
 
+    public Label getAttackLabel() {
+        return attackLabel;
+    }
 
+    public Label getDefenseLabel() {
+        return defenseLabel;
+    }
 }

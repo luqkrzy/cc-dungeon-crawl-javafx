@@ -96,7 +96,6 @@ public abstract class Actor implements Drawable {
 
     public void die() {
         cell.setActor(null);
-        ;
     }
 
 }

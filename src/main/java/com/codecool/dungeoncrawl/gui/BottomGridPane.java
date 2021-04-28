@@ -4,10 +4,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 
 public class BottomGridPane extends Pane {
-    private static final Label logMessage1 = new Label();
-    private static final Label logMessage2 = new Label();
-    private static final Label logMessage3 = new Label();
-    private static final Label logMessage4 = new Label();
+    private static final Label logMessage1 = new Label(" ");
+    private static final Label logMessage2 = new Label(" ");
+    private static final Label logMessage3 = new Label(" ");
+    private static final Label logMessage4 = new Label(" ");
 
 
     public BottomGridPane() {
@@ -21,7 +21,6 @@ public class BottomGridPane extends Pane {
         ui.add(logMessage3, 0, 0);
         ui.add(logMessage2, 0, 1);
         ui.add(logMessage1, 0, 2);
-        ui.add(logMessage4, 3, 0);
 
     }
 

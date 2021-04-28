@@ -2,17 +2,16 @@ package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.map.Cell;
 
-public class Sword extends Item {
-    private final int damage;
+public class Armor extends Item {
+    private final int defense;
 
-
-    public Sword(Cell cell, String name, int damage) {
+    public Armor(Cell cell, String name, int defense) {
         super(cell, name);
-        this.damage = damage;
+        this.defense = defense;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getDefense() {
+        return defense;
     }
 
     @Override
@@ -22,6 +21,6 @@ public class Sword extends Item {
 
     @Override
     public String getTileName() {
-        return "sword";
+        return "armor";
     }
 }

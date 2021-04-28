@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.gui;
 
+import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.map.Tiles;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -26,7 +28,16 @@ public class InventoryMenu {
         context.strokeText("Inventory", 460, 282);
         int y = 300;
         for (int i = 0; i < inventory.size(); i++, y+=15) {
-            context.strokeText(inventory.get(i).getName(), 410, y);
+            Item item = inventory.get(i);
+            StringBuilder stringBuilder = new StringBuilder();
+            if (item instanceof Sword) {
+                stringBuilder.append(item.getName()).append(" ATK+").append(((Sword) item).getDamage());
+            } else if (item instanceof Armor) {
+                stringBuilder.append(item.getName()).append(" DEF+").append(((Armor) item).getDefense());
+            } else {
+                stringBuilder.append(item.getName());
+            }
+            context.strokeText(stringBuilder.toString(), 410, y);
         }
 
     }

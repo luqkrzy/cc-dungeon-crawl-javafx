@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMap {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private Cell[][] cells;
     private Player player;
-    private List<Monster> monsters;
+    private final List<Monster> monsters;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -38,7 +38,6 @@ public class GameMap {
                 }
             }
         }
-
     }
 
     public List<Monster> getMonsters() {

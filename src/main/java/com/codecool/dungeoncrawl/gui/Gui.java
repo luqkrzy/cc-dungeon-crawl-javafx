@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Gui extends Pane {
@@ -74,8 +73,14 @@ public class Gui extends Pane {
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         lookForItem(map.getPlayer().getCell());
         moveMonsters();
+        refreshLabels();
         map.refresh(context);
+    }
+
+    private void refreshLabels() {
         rightGridPane.getHealthLabel().setText("" + map.getPlayer().getHealth());
+        rightGridPane.getAttackLabel().setText("" + map.getPlayer().getAttack());
+        rightGridPane.getDefenseLabel().setText("" + map.getPlayer().getDefense());
     }
 
     private void moveMonsters() {
