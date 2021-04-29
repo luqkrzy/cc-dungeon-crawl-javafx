@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.map;
+
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
@@ -60,23 +61,33 @@ public class Cell implements Drawable {
     public Cell getNeighbor(int dx, int dy) {
         int iX = x + dx;
         int iY = y + dy;
-        // boolean isOutOfBounds = isOutOfBounds(iX, iY);
-        // boolean isActor = isActor(iX, iY);
-        // if (isOutOfBounds || isActor) {
-        //     return gameMap.getCell(x, y);
-        // } else return gameMap.getCell(iX, iY);
-
-        return gameMap.getCell(iX, iY);
+        if (isOutOfBounds(iX, iY)) {
+            return gameMap.getCell(x, y);
+        } else if (isActor(iX, iY)) {
+            return gameMap.getCell(x, y);
+        } else return gameMap.getCell(iX, iY);
     }
 
     public List<Cell> getNeighbors() {
         List<Cell> neighbors = new ArrayList<>();
-        neighbors.add(gameMap.getCell(x + 1, y));
-        neighbors.add(gameMap.getCell(x - 1, y));
-        neighbors.add(gameMap.getCell(x, y + 1));
-        neighbors.add(gameMap.getCell(x, y - 1));
-        return neighbors;
+        int pX = x + 1;
+        int pY = y + 1;
+        int nX = x - 1;
+        int nY = y - 1;
 
+        if (pX <= gameMap.getWidth() - 1) {
+            neighbors.add(gameMap.getCell(pX, y));
+        }
+        if (pY <= gameMap.getHeight() - 1) {
+            neighbors.add(gameMap.getCell(x, pY));
+        }
+        if (nX >= 0 && nX <= gameMap.getWidth() - 1) {
+            neighbors.add(gameMap.getCell(nX, y));
+        }
+        if (nY >= 0 && nY <= gameMap.getHeight() - 1) {
+            neighbors.add(gameMap.getCell(x, nY));
+        }
+        return neighbors;
     }
 
     public boolean isActorAndItemSamePosition() {
@@ -97,7 +108,7 @@ public class Cell implements Drawable {
     }
 
     public boolean isOutOfBounds(int iX, int iY) {
-        return iY >= gameMap.getHeight() || iX >= gameMap.getWidth();
+        return (iY < 0 || iY >= gameMap.getHeight() - 1) || (iX < 0 || iX >= gameMap.getWidth() - 1);
     }
 
     @Override

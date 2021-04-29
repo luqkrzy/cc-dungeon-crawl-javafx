@@ -1,10 +1,8 @@
 package com.codecool.dungeoncrawl.logic.fight;
-
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-
 import java.util.Random;
 
 public class FightEngine {

@@ -1,9 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
-
 import com.codecool.dungeoncrawl.logic.fight.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
-import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.Drawable;
 
 import java.util.ArrayList;
@@ -11,9 +9,9 @@ import java.util.List;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    private int health = 10;
-    private int defense;
-    private int attack;
+    protected int health = 10;
+    protected int defense;
+    protected int attack;
     private final List<Item> inventory;
     protected FightEngine fightEngine;
 
@@ -29,9 +27,7 @@ public abstract class Actor implements Drawable {
             die();
         } else {
             Cell nextCell = cell.getNeighbor(dx, dy);
-            boolean outOfBounds = cell.isOutOfBounds(cell.getX() + dx, cell.getY() + dy);
-            boolean isActor = cell.isActor(cell.getX() + dx, cell.getY() + dy);
-            if ((!outOfBounds && !isActor) && nextCell.isPassable()) {
+            if (nextCell.isPassable()) {
                 cell.setActor(null);
                 nextCell.setActor(this);
                 cell = nextCell;
@@ -54,7 +50,7 @@ public abstract class Actor implements Drawable {
         return defense;
     }
 
-    public void setDefense(int defense) {
+    protected void setDefense(int defense) {
         this.defense = defense;
     }
 
@@ -62,7 +58,7 @@ public abstract class Actor implements Drawable {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    protected void setAttack(int attack) {
         this.attack = attack;
     }
 
@@ -96,6 +92,11 @@ public abstract class Actor implements Drawable {
 
     public void die() {
         cell.setActor(null);
+    }
+
+    @Override
+    public boolean isPassable() {
+        return false;
     }
 
 }

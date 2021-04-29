@@ -16,19 +16,12 @@ public class Player extends Actor {
     }
 
     @Override
-    public boolean isPassable() {
-        return false;
-    }
-
     public String getTileName() {
         return "player";
     }
 
-
     public void addToInventory(Cell cell) {
         Item item = cell.getItem();
-
-
         BottomGridPane.log("picked up: " + item.getName());
         if (item instanceof Sword) {
             setAttack(getAttack() + ((Sword) item).getDamage());
@@ -36,16 +29,12 @@ public class Player extends Actor {
         if (item instanceof Armor) {
             setDefense(getDefense() + ((Armor) item).getDefense());
         }
-
         if (item instanceof HP) {
             setHealth(getHealth() + ((HP) item).getHealthPoints());
         } else {
             addItem(item);
         }
-
-
         cell.setItem(null);
-
     }
 
 }
