@@ -5,13 +5,14 @@ import com.codecool.dungeoncrawl.map.Cell;
 public class HP extends Item {
     private final int healthPoints;
 
-    public HP(Cell cell, String name, int healthPoints) {
+    public HP(Cell cell, String name) {
         super(cell, name);
-        this.healthPoints = healthPoints;
+        this.healthPoints = randomNumberInRange(5, 10);
     }
 
-    public HP(int healthPoints) {
-        this.healthPoints = healthPoints;
+    public HP(String name) {
+        super(name);
+        this.healthPoints = randomNumberInRange(5, 10);
     }
 
     public int getHealthPoints() {

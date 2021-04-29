@@ -5,7 +5,8 @@ public enum CellType {
     FLOOR("floor", true),
     WALL("wall", false),
     DOORS("doors", false),
-    OPENDOORS("opendoors", true);
+    OPENDOORS("opendoors", true),
+    STAIRS("stairs", true);
 
     private final String tileName;
     private final boolean isPassable;

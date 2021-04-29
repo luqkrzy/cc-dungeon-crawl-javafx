@@ -11,6 +11,11 @@ public class Sword extends Item {
         this.damage = damage;
     }
 
+    public Sword(String name) {
+        super(name);
+        this.damage = randomNumberInRange(3, 5);
+    }
+
     public int getDamage() {
         return damage;
     }

@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.gui.RightGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
 import javafx.scene.canvas.GraphicsContext;
@@ -41,7 +42,7 @@ public class Engine {
     }
 
     private void nextMap(Player player) {
-        if (player.getX() == 1 && player.getY() == 1) {
+        if (player.getCell().getType().equals(CellType.STAIRS)) {
             GameMap map = MapLoader.loadMap("/map2.txt");
             this.map = map;
             keyboardHandler.setMap(map);

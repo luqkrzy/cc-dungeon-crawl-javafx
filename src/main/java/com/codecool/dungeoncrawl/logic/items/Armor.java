@@ -10,6 +10,11 @@ public class Armor extends Item {
         this.defense = defense;
     }
 
+    public Armor(String name) {
+        super(name);
+        this.defense = randomNumberInRange(2, 5);
+    }
+
     public int getDefense() {
         return defense;
     }

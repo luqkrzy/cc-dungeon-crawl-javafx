@@ -13,6 +13,15 @@ public class Key extends Item {
         this.doorY = y;
     }
 
+    public Key(String name, int x, int y) {
+        super(name);
+        this.doorX = x;
+        this.doorY = y;
+
+
+    }
+
+
     public int getDoorX() {
         return doorX;
     }

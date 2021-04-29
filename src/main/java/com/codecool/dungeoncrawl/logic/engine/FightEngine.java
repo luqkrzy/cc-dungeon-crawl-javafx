@@ -1,18 +1,15 @@
-package com.codecool.dungeoncrawl.logic.fight;
+package com.codecool.dungeoncrawl.logic.engine;
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-
 import java.util.List;
 import java.util.Random;
 
 public class FightEngine {
-
     Random random = new Random();
 
     public void fight(Player player, Monster monster) {
-
             boolean b = random.nextBoolean();
             round(b ? player : monster, b ? monster : player);
     }
@@ -58,13 +55,12 @@ public class FightEngine {
         BottomGridPane.log(String.format("%s's hit caused %d damage to %s", player.getInstanceName(), damageCaused, monster.getInstanceName()));
         if (monster.isAlive()) {
             damageCaused = defenderAtk - attackerDef;
-            damageCaused = damageCaused > 0 ? damageCaused : 0;
+            damageCaused = Math.max(damageCaused, 0);
             BottomGridPane.log(String.format("%s's hit caused %d damage to %s", monster.getInstanceName(), damageCaused, player.getInstanceName()));
-            player.setHealth(damageCaused > 0 ? attackerHealth - damageCaused : 0);
+            player.setHealth(attackerHealth - damageCaused);
         } else {
             monster.die();
             BottomGridPane.log(String.format("%s died", monster.getInstanceName()));
-
         }
 
     }

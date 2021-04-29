@@ -11,14 +11,11 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    private static int width;
-    private static int height;
-
-    public static GameMap loadMap(String mapName) {
-        InputStream is = MapLoader.class.getResourceAsStream(mapName);
+    public static GameMap loadMap(String s) {
+        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
         Scanner scanner = new Scanner(is);
-        width = scanner.nextInt();
-        height = scanner.nextInt();
+        int width = scanner.nextInt();
+        int height = scanner.nextInt();
 
         scanner.nextLine(); // empty line
 
@@ -33,6 +30,7 @@ public class MapLoader {
                         case '#' -> cell.setType(CellType.WALL);
                         case '.' -> cell.setType(CellType.FLOOR);
                         case 'd' -> cell.setType(CellType.DOORS);
+                        case '{' -> cell.setType(CellType.STAIRS);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
                             map.addMonster(new Skeleton(cell));
@@ -59,23 +57,16 @@ public class MapLoader {
                         }
                         case 'h' -> {
                             cell.setType(CellType.FLOOR);
-                            new HP(cell, "hp", 5);
+                            new HP(cell, "hp");
                         }
-
-
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }
         }
+        map.initItems();
+
         return map;
     }
 
-    public static int getWidth() {
-        return width;
-    }
-
-    public static int getHeight() {
-        return height;
-    }
 }

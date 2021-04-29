@@ -47,6 +47,10 @@ public class Cell implements Drawable {
 
     }
 
+    public CellType getType() {
+        return type;
+    }
+
     public boolean isMonster() {
         return actor instanceof Monster;
 

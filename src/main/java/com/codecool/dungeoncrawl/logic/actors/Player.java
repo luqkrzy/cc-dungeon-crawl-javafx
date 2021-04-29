@@ -28,12 +28,10 @@ public class Player extends Actor {
         if (item instanceof Armor) {
             setDefense(getDefense() + ((Armor) item).getDefense());
         }
-
         if (item instanceof Key) {
             GameMap map = cell.getGameMap();
             map.getCell(((Key) item).getDoorX(), ((Key) item).getDoorY()).setType(CellType.OPENDOORS);
         }
-
         if (item instanceof HP) {
             setHealth(getHealth() + ((HP) item).getHealthPoints());
         } else {

@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
-import com.codecool.dungeoncrawl.gui.BottomGridPane;
-import com.codecool.dungeoncrawl.logic.fight.FightEngine;
+import com.codecool.dungeoncrawl.logic.engine.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.Drawable;
@@ -84,6 +83,11 @@ public abstract class Actor implements Drawable {
     public void addItem(Item item) {
         inventory.add(item);
     }
+
+    public void removeItem(Item item) {
+        inventory.remove(item);
+    }
+
 
     public String getInstanceName() {
         return this.getClass().getSimpleName();

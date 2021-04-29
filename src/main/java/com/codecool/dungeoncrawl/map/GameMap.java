@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.map;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -66,5 +67,24 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public void initItems() {
+        int monstersNo = monsters.size();
+        int hpNo = monstersNo - 4;
+        List<Item> items = new ArrayList<>();
+        for (int i = 0; i < hpNo; i++) {
+            items.add(new HP("Potion"));
+        }
+        items.add(new Sword("Saber"));
+        items.add(new Armor("Metal Armor"));
+        items.add(new Key("Door key", 17, 3));
+        items.add(new Key("Door Key", 22, 18));
+
+        for (int i = 0; i < items.size(); i++) {
+            monsters.get(i).addItem(items.get(i));
+        }
+
+
     }
 }
