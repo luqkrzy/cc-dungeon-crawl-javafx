@@ -9,25 +9,20 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class InventoryMenu {
-    GraphicsContext context;
-    double width;
-    double height;
+public class DisplayInventory extends Display {
 
-    public InventoryMenu(GraphicsContext context, double width, double height) {
-        this.context = context;
-        this.width = width;
-        this.height = height;
+    public DisplayInventory(GraphicsContext context, double width, double height) {
+        super(context, width, height);
     }
 
     public void show(List<Item> inventory) {
         context.setFill(Color.BLUE);
-        context.fillRect(width - 2, height - 2, 204, 204);
+        context.fillRect(x - 2, y - 2, 204, 204);
         context.setFill(Color.GRAY);
-        context.fillRect(width, height, 200, 200);
+        context.fillRect(x, y, 200, 200);
         context.strokeText("Inventory", 460, 282);
         int y = 300;
-        for (int i = 0; i < inventory.size(); i++, y+=15) {
+        for (int i = 0; i < inventory.size(); i++, y += 15) {
             Item item = inventory.get(i);
             StringBuilder stringBuilder = new StringBuilder();
             if (item instanceof Sword) {

@@ -10,6 +10,10 @@ public class HP extends Item {
         this.healthPoints = healthPoints;
     }
 
+    public HP(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
     public int getHealthPoints() {
         return healthPoints;
     }

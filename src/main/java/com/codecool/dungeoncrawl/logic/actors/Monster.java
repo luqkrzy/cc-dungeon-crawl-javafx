@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +10,11 @@ public abstract class Monster extends Actor {
 
     public Monster(Cell cell) {
         super(cell);
+    }
+
+    public Monster(Cell cell, Item item) {
+        super(cell);
+        addItem(item);
     }
 
     public void initMove() {
@@ -36,7 +42,6 @@ public abstract class Monster extends Actor {
     public void attack(Player player) {
         BottomGridPane.log("attack!");
         fightEngine.fight2(player, this);
-
     }
 
     private int random() {

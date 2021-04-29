@@ -11,11 +11,14 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    private static int width;
+    private static int height;
+
+    public static GameMap loadMap(String mapName) {
+        InputStream is = MapLoader.class.getResourceAsStream(mapName);
         Scanner scanner = new Scanner(is);
-        int width = scanner.nextInt();
-        int height = scanner.nextInt();
+        width = scanner.nextInt();
+        height = scanner.nextInt();
 
         scanner.nextLine(); // empty line
 
@@ -29,6 +32,7 @@ public class MapLoader {
                         case ' ' -> cell.setType(CellType.EMPTY);
                         case '#' -> cell.setType(CellType.WALL);
                         case '.' -> cell.setType(CellType.FLOOR);
+                        case 'd' -> cell.setType(CellType.DOORS);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
                             map.addMonster(new Skeleton(cell));
@@ -39,7 +43,7 @@ public class MapLoader {
                         }
                         case 'k' -> {
                             cell.setType(CellType.FLOOR);
-                            new Key(cell, "key");
+                            new Key(cell, "key", 17, 3);
                         }
                         case 'g' -> {
                             cell.setType(CellType.FLOOR);
@@ -53,7 +57,6 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Armor(cell, "armor", 3);
                         }
-
                         case 'h' -> {
                             cell.setType(CellType.FLOOR);
                             new HP(cell, "hp", 5);
@@ -68,4 +71,11 @@ public class MapLoader {
         return map;
     }
 
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
+    }
 }

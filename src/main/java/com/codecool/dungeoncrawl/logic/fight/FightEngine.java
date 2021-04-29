@@ -3,6 +3,8 @@ import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+
+import java.util.List;
 import java.util.Random;
 
 public class FightEngine {
@@ -16,6 +18,9 @@ public class FightEngine {
     }
 
     public void round(Actor attacker, Actor defender) {
+
+        List<Monster> monsters = attacker.getCell().getGameMap().getMonsters();
+
         int attackerAtk = attacker.getAttack();
         int attackerDef = attacker.getDefense();
         int attackerHealth = attacker.getHealth();
@@ -31,6 +36,9 @@ public class FightEngine {
             attacker.setHealth(attackerHealth - damageCaused);
         } else {
             defender.die();
+            monsters.remove(defender);
+            BottomGridPane.log(String.format("%s died", defender.getInstanceName()));
+
         }
 
     }
@@ -44,13 +52,15 @@ public class FightEngine {
         int defenderAtk = monster.getAttack();
         int defenderDef = monster.getDefense();
         int defenderHealth = monster.getHealth();
+
         int damageCaused = attackerAtk - defenderDef;
         monster.setHealth(defenderHealth - damageCaused);
         BottomGridPane.log(String.format("%s's hit caused %d damage to %s", player.getInstanceName(), damageCaused, monster.getInstanceName()));
         if (monster.isAlive()) {
             damageCaused = defenderAtk - attackerDef;
+            damageCaused = damageCaused > 0 ? damageCaused : 0;
             BottomGridPane.log(String.format("%s's hit caused %d damage to %s", monster.getInstanceName(), damageCaused, player.getInstanceName()));
-            player.setHealth(attackerHealth - damageCaused);
+            player.setHealth(damageCaused > 0 ? attackerHealth - damageCaused : 0);
         } else {
             monster.die();
             BottomGridPane.log(String.format("%s died", monster.getInstanceName()));

@@ -1,11 +1,10 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
-import com.codecool.dungeoncrawl.logic.items.Armor;
-import com.codecool.dungeoncrawl.logic.items.HP;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.CellType;
+import com.codecool.dungeoncrawl.map.GameMap;
 
 public class Player extends Actor {
     public Player(Cell cell) {
@@ -29,6 +28,12 @@ public class Player extends Actor {
         if (item instanceof Armor) {
             setDefense(getDefense() + ((Armor) item).getDefense());
         }
+
+        if (item instanceof Key) {
+            GameMap map = cell.getGameMap();
+            map.getCell(((Key) item).getDoorX(), ((Key) item).getDoorY()).setType(CellType.OPENDOORS);
+        }
+
         if (item instanceof HP) {
             setHealth(getHealth() + ((HP) item).getHealthPoints());
         } else {

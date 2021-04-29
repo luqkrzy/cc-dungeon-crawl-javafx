@@ -4,8 +4,11 @@ import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.Drawable;
 
 public abstract class Item implements Drawable {
-    private final Cell cell;
-    private final String name;
+    private Cell cell;
+    private String name;
+
+    public Item() {
+    }
 
     public Item(Cell cell, String name) {
         this.cell = cell;
@@ -13,10 +16,14 @@ public abstract class Item implements Drawable {
         this.cell.setItem(this);
     }
 
+
     public Cell getCell() {
         return cell;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
 
     public int getX() {
         return cell.getX();

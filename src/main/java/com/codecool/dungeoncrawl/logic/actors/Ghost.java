@@ -8,7 +8,7 @@ public class Ghost extends Monster {
     public Ghost(Cell cell) {
         super(cell);
         setHealth(80);
-        setAttack(7);
+        setAttack(11);
         setDefense(3);
     }
 

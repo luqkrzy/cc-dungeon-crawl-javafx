@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
+import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.fight.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
@@ -13,7 +14,7 @@ public abstract class Actor implements Drawable {
     protected int defense;
     protected int attack;
     private final List<Item> inventory;
-    protected FightEngine fightEngine;
+    protected final FightEngine fightEngine;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -31,8 +32,6 @@ public abstract class Actor implements Drawable {
                 cell.setActor(null);
                 nextCell.setActor(this);
                 cell = nextCell;
-                // } else if (nextCell.isActor() &&  nextCell.isMonster()) {
-                //     fightEngine.fight((Player) cell.getActor(), (Monster) nextCell.getActor());
             }
         }
 
@@ -92,6 +91,15 @@ public abstract class Actor implements Drawable {
 
     public void die() {
         cell.setActor(null);
+        dropItem();
+    }
+
+    private void dropItem() {
+        if (inventory.size() > 0) {
+            Item item = inventory.get(0);
+            item.setCell(cell);
+            cell.setItem(item);
+        }
     }
 
     @Override

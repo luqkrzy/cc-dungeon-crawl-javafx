@@ -9,7 +9,6 @@ public class BottomGridPane extends Pane {
     private static final Label logMessage3 = new Label(" ");
     private static final Label logMessage4 = new Label(" ");
 
-
     public BottomGridPane() {
         build();
     }
@@ -21,12 +20,6 @@ public class BottomGridPane extends Pane {
         ui.add(logMessage3, 0, 0);
         ui.add(logMessage2, 0, 1);
         ui.add(logMessage1, 0, 2);
-
-    }
-
-    public static void showInventory(String message) {
-        logMessage4.setText(message);
-
     }
 
     public static void log(String message){

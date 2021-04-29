@@ -1,11 +1,9 @@
 package com.codecool.dungeoncrawl.map;
-
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +28,6 @@ public class Cell implements Drawable {
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public CellType getType() {
-        return type;
     }
 
     public void setType(CellType type) {
@@ -98,7 +92,6 @@ public class Cell implements Drawable {
         return sameXY;
     }
 
-
     public boolean isActor(int iX, int iY) {
         return gameMap.getCell(iX, iY).actor != null;
     }
@@ -131,5 +124,9 @@ public class Cell implements Drawable {
 
     public boolean isItem() {
         return item != null;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 }
