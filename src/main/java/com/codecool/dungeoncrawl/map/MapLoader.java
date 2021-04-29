@@ -3,6 +3,7 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.HP;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 
@@ -51,6 +52,11 @@ public class MapLoader {
                         case '[' -> {
                             cell.setType(CellType.FLOOR);
                             new Armor(cell, "armor", 3);
+                        }
+
+                        case 'h' -> {
+                            cell.setType(CellType.FLOOR);
+                            new HP(cell, "hp", 5);
                         }
 
 

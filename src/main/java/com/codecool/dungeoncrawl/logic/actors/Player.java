@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.items.Armor;
+import com.codecool.dungeoncrawl.logic.items.HP;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.map.Cell;
@@ -26,7 +27,8 @@ public class Player extends Actor {
 
     public void addToInventory(Cell cell) {
         Item item = cell.getItem();
-        addItem(item);
+
+
         BottomGridPane.log("picked up: " + item.getName());
         if (item instanceof Sword) {
             setAttack(getAttack() + ((Sword) item).getDamage());
@@ -34,6 +36,13 @@ public class Player extends Actor {
         if (item instanceof Armor) {
             setDefense(getDefense() + ((Armor) item).getDefense());
         }
+
+        if (item instanceof HP) {
+            setHealth(getHealth() + ((HP) item).getHealthPoints());
+        } else {
+            addItem(item);
+        }
+
 
         cell.setItem(null);
 
