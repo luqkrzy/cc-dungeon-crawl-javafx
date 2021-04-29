@@ -1,47 +1,33 @@
-package com.codecool.dungeoncrawl.logic;
-
+package com.codecool.dungeoncrawl.logic.engine;
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.gui.DisplayGameOver;
-import com.codecool.dungeoncrawl.gui.DisplayInventory;
 import com.codecool.dungeoncrawl.gui.RightGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-
 import java.util.List;
 
 public class Engine {
 
-    private final GameMap map;
-    private final Player player;
+    private GameMap map;
     private final GraphicsContext context;
     private final DisplayGameOver displayGameOver;
     private final RightGridPane rightGridPane;
-    private final DisplayInventory displayInventory;
-    private final Canvas canvas;
+    private final KeyboardHandler keyboardHandler;
 
-    public Engine(GameMap map, GraphicsContext context, DisplayGameOver displayGameOver, RightGridPane rightGridPane, DisplayInventory displayInventory, Canvas canvas) {
-        // this.map = loadMap("/map.txt");
+    public Engine(GameMap map, GraphicsContext context, DisplayGameOver displayGameOver, RightGridPane rightGridPane, KeyboardHandler keyboardHandler) {
         this.map = map;
-        this.player = map.getPlayer();
         this.context = context;
         this.displayGameOver = displayGameOver;
-        this.displayInventory = displayInventory;
         this.rightGridPane = rightGridPane;
-        this.canvas = canvas;
-    }
-
-    private GameMap loadMap(String mapName) {
-        return MapLoader.loadMap(mapName);
+        this.keyboardHandler = keyboardHandler;
     }
 
     public void gamePlay() {
+        Player player = map.getPlayer();
         if (!player.isAlive()) {
             gameOver();
         } else {
@@ -49,7 +35,16 @@ public class Engine {
             lookForItem(map.getPlayer().getCell());
             moveMonsters();
             refreshLabels();
+            nextMap(player);
             map.refresh(context);
+        }
+    }
+
+    private void nextMap(Player player) {
+        if (player.getX() == 1 && player.getY() == 1) {
+            GameMap map = MapLoader.loadMap("/map2.txt");
+            this.map = map;
+            keyboardHandler.setMap(map);
         }
     }
 
@@ -79,39 +74,4 @@ public class Engine {
         rightGridPane.getAttackLabel().setText("" + map.getPlayer().getAttack());
         rightGridPane.getDefenseLabel().setText("" + map.getPlayer().getDefense());
     }
-
-
-    public void refresh() {
-        context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        gamePlay();
-    }
-
-
-    public void onKeyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-            case W -> {
-                map.getPlayer().move(0, -1);
-                refresh();
-            }
-            case S -> {
-                map.getPlayer().move(0, 1);
-                refresh();
-            }
-            case A -> {
-                map.getPlayer().move(-1, 0);
-                refresh();
-            }
-            case D -> {
-                map.getPlayer().move(1, 0);
-                refresh();
-            }
-            case I -> {
-                refresh();
-                displayInventory.show(map.getPlayer().getInventory());
-            }
-        }
-    }
-
-
 }

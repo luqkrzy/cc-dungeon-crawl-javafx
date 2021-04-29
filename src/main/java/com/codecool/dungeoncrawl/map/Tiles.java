@@ -11,10 +11,8 @@ public class Tiles {
 
     private final static Image tileset = new Image("/tiles.png", 543 * 2, 543 * 2, true, false);
     private final static Map<String, Tile> tileMap = new HashMap<>();
-
     public static class Tile {
         public final int x, y, w, h;
-
         Tile(int i, int j) {
             x = i * (TILE_WIDTH + 2);
             y = j * (TILE_WIDTH + 2);
