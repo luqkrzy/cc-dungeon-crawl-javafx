@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.map;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
+import com.codecool.dungeoncrawl.logic.actors.Mage;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.Armor;
@@ -11,8 +12,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap(String s) {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static GameMap loadMap(String name) {
+        InputStream is = MapLoader.class.getResourceAsStream(name);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -31,6 +32,7 @@ public class MapLoader {
                         case '.' -> cell.setType(CellType.FLOOR);
                         case 'd' -> cell.setType(CellType.DOORS);
                         case '{' -> cell.setType(CellType.STAIRS);
+                        case '<' -> cell.setType(CellType.SPIKE);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
                             map.addMonster(new Skeleton(cell));
@@ -46,6 +48,10 @@ public class MapLoader {
                         case 'g' -> {
                             cell.setType(CellType.FLOOR);
                             map.addMonster(new Ghost(cell));
+                        }
+                        case 'm' -> {
+                            cell.setType(CellType.FLOOR);
+                            map.addMonster(new Mage(cell));
                         }
                         case '>' -> {
                             cell.setType(CellType.FLOOR);

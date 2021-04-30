@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.logic.actors;
+import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.engine.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.Drawable;
 
 import java.util.ArrayList;
@@ -31,9 +33,12 @@ public abstract class Actor implements Drawable {
                 cell.setActor(null);
                 nextCell.setActor(this);
                 cell = nextCell;
+                if (nextCell.getType().equals(CellType.SPIKE)) {
+                    health -= 1;
+                    BottomGridPane.log("-1HP, watch out spikes!");
+                }
             }
         }
-
     }
 
     public int getHealth() {

@@ -38,14 +38,6 @@ public class Gui {
         // this.timeline = initTimeline();
     }
 
-    public void setMap(GameMap map) {
-        this.map = map;
-    }
-
-    // private Timeline initTimeline() {
-    //     return new Timeline(new KeyFrame(Duration.millis(500), event -> engine.refresh()));
-    // }
-
     public void start(Stage primaryStage) throws Exception {
         BorderPane borderPane = setUpBorderPane();
         setUpStage(primaryStage, borderPane);
@@ -79,6 +71,14 @@ public class Gui {
     // public void cycleRefresh() {
     //     timeline.setCycleCount(Animation.INDEFINITE);
     //     timeline.play();
+    // }
+
+    // public void setMap(GameMap map) {
+    //     this.map = map;
+    // }
+
+    // private Timeline initTimeline() {
+    //     return new Timeline(new KeyFrame(Duration.millis(500), event -> engine.refresh()));
     // }
 
 }
