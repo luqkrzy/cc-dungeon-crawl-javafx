@@ -18,7 +18,7 @@ public class Mage extends Monster {
     @Override
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (!nextCell.getType().equals(CellType.EMPTY)) {
+        if (!nextCell.getType().equals(CellType.EMPTY) && !nextCell.getType().equals(CellType.WALL)) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

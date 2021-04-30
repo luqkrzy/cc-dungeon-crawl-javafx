@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.gui;
+import com.codecool.dungeoncrawl.gui.menu.MainMenu;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
@@ -20,8 +21,9 @@ public class Gui {
     protected final DisplayInventory displayInventory;
     protected final DisplayGameOver displayGameOver;
     protected final KeyboardHandler keyboardHandler;
-    // private final Timeline timeline;
     protected final Engine engine;
+    protected Stage primaryStage;
+    // private final Timeline timeline;
 
     public Gui() {
         this.map = MapLoader.loadMap("/map.txt");
@@ -39,19 +41,13 @@ public class Gui {
     }
 
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+        MainMenu mainMenu = new MainMenu(primaryStage);
+        mainMenu.setUpMainMenu();
+    }
+
+    protected void startNewGame(Stage primaryStage) {
         BorderPane borderPane = setUpBorderPane();
-        setUpStage(primaryStage, borderPane);
-    }
-
-    private BorderPane setUpBorderPane() {
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(canvas);
-        borderPane.setRight(rightGridPane.getUi());
-        borderPane.setBottom(bottomGridPane.getUi());
-        return borderPane;
-    }
-
-    private void setUpStage(Stage primaryStage, BorderPane borderPane) {
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
@@ -62,10 +58,54 @@ public class Gui {
         primaryStage.show();
     }
 
+    private BorderPane setUpBorderPane() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(canvas);
+        borderPane.setRight(rightGridPane.getUi());
+        borderPane.setBottom(bottomGridPane.getUi());
+        return borderPane;
+    }
+
     public void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         engine.gamePlay();
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public GraphicsContext getContext() {
+        return context;
+    }
+
+    public RightGridPane getRightGridPane() {
+        return rightGridPane;
+    }
+
+    public BottomGridPane getBottomGridPane() {
+        return bottomGridPane;
+    }
+
+    public DisplayInventory getDisplayInventory() {
+        return displayInventory;
+    }
+
+    public DisplayGameOver getDisplayGameOver() {
+        return displayGameOver;
+    }
+
+    public KeyboardHandler getKeyboardHandler() {
+        return keyboardHandler;
+    }
+
+    public Engine getEngine() {
+        return engine;
     }
 
     // public void cycleRefresh() {

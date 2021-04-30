@@ -16,7 +16,6 @@ public class DisplayGameOver extends Display {
         writeText("GAME OVER", 10, 10);
     }
 
-
     private void writeText(String str, int x, int y) {
         for (int i = 0; i < str.length(); i++) {
             Tiles.drawTile(context, String.valueOf(str.charAt(i)), x + i, y);

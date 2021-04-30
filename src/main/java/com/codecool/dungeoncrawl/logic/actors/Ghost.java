@@ -5,8 +5,8 @@ import com.codecool.dungeoncrawl.map.Cell;
 public class Ghost extends Monster {
     public Ghost(Cell cell) {
         super(cell);
-        setHealth(50);
-        setAttack(11);
+        setHealth(40);
+        setAttack(10);
         setDefense(2);
     }
 
