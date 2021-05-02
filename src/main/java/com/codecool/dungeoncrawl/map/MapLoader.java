@@ -7,13 +7,12 @@ import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HP;
 import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
-
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap(String name) {
-        InputStream is = MapLoader.class.getResourceAsStream(name);
+    public static GameMap loadMap(String mapName, String userName) {
+        InputStream is = MapLoader.class.getResourceAsStream(mapName);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -39,7 +38,7 @@ public class MapLoader {
                         }
                         case '@' -> {
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(cell, userName));
                         }
                         case 'k' -> {
                             cell.setType(CellType.FLOOR);

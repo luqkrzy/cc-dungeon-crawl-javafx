@@ -1,5 +1,4 @@
 package com.codecool.dungeoncrawl.logic.actors;
-
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.map.Cell;
@@ -7,8 +6,11 @@ import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.GameMap;
 
 public class Player extends Actor {
-    public Player(Cell cell) {
+    private final String name;
+
+    public Player(Cell cell, String name) {
         super(cell);
+        this.name = name;
         setHealth(100);
         setDefense(5);
         setAttack(5);
@@ -40,4 +42,7 @@ public class Player extends Actor {
         cell.setItem(null);
     }
 
+    public String getName() {
+        return name;
+    }
 }

@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.engine;
 import com.codecool.dungeoncrawl.gui.BottomGridPane;
 import com.codecool.dungeoncrawl.gui.DisplayGameOver;
 import com.codecool.dungeoncrawl.gui.RightGridPane;
+import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
@@ -9,6 +10,7 @@ import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
 import javafx.scene.canvas.GraphicsContext;
+
 import java.util.List;
 
 public class Engine {
@@ -18,6 +20,7 @@ public class Engine {
     private final DisplayGameOver displayGameOver;
     private final RightGridPane rightGridPane;
     private final KeyboardHandler keyboardHandler;
+    private GameMenu gameOverMenu;
 
     public Engine(GameMap map, GraphicsContext context, DisplayGameOver displayGameOver, RightGridPane rightGridPane, KeyboardHandler keyboardHandler) {
         this.map = map;
@@ -43,7 +46,7 @@ public class Engine {
 
     private void nextMap(Player player) {
         if (player.getCell().getType().equals(CellType.STAIRS)) {
-            GameMap map = MapLoader.loadMap("/map2.txt");
+            GameMap map = MapLoader.loadMap("/map2.txt", player.getName());
             this.map = map;
             keyboardHandler.setMap(map);
         }
@@ -52,7 +55,7 @@ public class Engine {
     private void gameOver() {
         BottomGridPane.log("GAME OVER!");
         map.refresh(context);
-        displayGameOver.show();
+        gameOverMenu.setUpMenu();
     }
 
     private void lookForItem(Cell cell) {
@@ -74,5 +77,10 @@ public class Engine {
         rightGridPane.getHealthLabel().setText("" + map.getPlayer().getHealth());
         rightGridPane.getAttackLabel().setText("" + map.getPlayer().getAttack());
         rightGridPane.getDefenseLabel().setText("" + map.getPlayer().getDefense());
+    }
+
+    public void setGameOverMenu(GameMenu gameOverMenu) {
+        this.gameOverMenu = gameOverMenu;
+
     }
 }

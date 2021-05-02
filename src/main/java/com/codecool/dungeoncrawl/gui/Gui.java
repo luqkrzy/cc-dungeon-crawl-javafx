@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.gui;
-import com.codecool.dungeoncrawl.gui.menu.MainMenu;
+import com.codecool.dungeoncrawl.gui.menu.GameMenu;
+import com.codecool.dungeoncrawl.gui.menu.MenuItemTitle;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
@@ -26,7 +27,7 @@ public class Gui {
     // private final Timeline timeline;
 
     public Gui() {
-        this.map = MapLoader.loadMap("/map.txt");
+        this.map = MapLoader.loadMap("/map.txt", "anonymous");
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);
@@ -42,20 +43,27 @@ public class Gui {
 
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        MainMenu mainMenu = new MainMenu(primaryStage);
-        mainMenu.setUpMainMenu();
+        GameMenu mainMenu = new GameMenu(this, MenuItemTitle.DUNGEON_CRAWL);
+        mainMenu.setUpMenu();
     }
 
-    protected void startNewGame(Stage primaryStage) {
-        BorderPane borderPane = setUpBorderPane();
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
-        refresh();
-        // cycleRefresh();
-        // scene.setOnMouseClicked(mouseEvent -> System.out.println(mouseEvent.getPickResult()));
-        primaryStage.setTitle("Dungeon Crawl");
-        primaryStage.show();
+    private void setUpGameOverMenu() {
+        GameMenu gameOverMenu = new GameMenu(this, MenuItemTitle.GAME_OVER);
+        engine.setGameOverMenu(gameOverMenu);
+    }
+
+
+    public void startNewGame(String playerName) {
+        if (playerName.length() > 0) {
+            BorderPane borderPane = setUpBorderPane();
+            Scene scene = new Scene(borderPane);
+            primaryStage.setScene(scene);
+            setUpGameOverMenu();
+            scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
+            refresh();
+            primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
+            primaryStage.show();
+        }
     }
 
     private BorderPane setUpBorderPane() {
@@ -106,6 +114,10 @@ public class Gui {
 
     public Engine getEngine() {
         return engine;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     // public void cycleRefresh() {
