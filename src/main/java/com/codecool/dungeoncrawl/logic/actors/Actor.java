@@ -1,5 +1,5 @@
 package com.codecool.dungeoncrawl.logic.actors;
-import com.codecool.dungeoncrawl.gui.BottomGridPane;
+import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.engine.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;

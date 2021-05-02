@@ -1,5 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
-
+package com.codecool.dungeoncrawl.gui.window;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 

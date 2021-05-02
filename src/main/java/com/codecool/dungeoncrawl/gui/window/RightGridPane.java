@@ -1,5 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
-
+package com.codecool.dungeoncrawl.gui.window;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
 import javafx.geometry.Insets;

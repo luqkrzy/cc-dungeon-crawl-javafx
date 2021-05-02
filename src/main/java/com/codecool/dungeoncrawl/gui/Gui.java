@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.gui;
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.menu.MenuItemTitle;
+import com.codecool.dungeoncrawl.gui.window.*;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
@@ -52,6 +53,11 @@ public class Gui {
         engine.setGameOverMenu(gameOverMenu);
     }
 
+    public void popUpSaveWindow() {
+        SaveWindow.popUp();
+
+    }
+
 
     public void startNewGame(String playerName) {
         if (playerName.length() > 0) {
@@ -86,34 +92,6 @@ public class Gui {
 
     public Canvas getCanvas() {
         return canvas;
-    }
-
-    public GraphicsContext getContext() {
-        return context;
-    }
-
-    public RightGridPane getRightGridPane() {
-        return rightGridPane;
-    }
-
-    public BottomGridPane getBottomGridPane() {
-        return bottomGridPane;
-    }
-
-    public DisplayInventory getDisplayInventory() {
-        return displayInventory;
-    }
-
-    public DisplayGameOver getDisplayGameOver() {
-        return displayGameOver;
-    }
-
-    public KeyboardHandler getKeyboardHandler() {
-        return keyboardHandler;
-    }
-
-    public Engine getEngine() {
-        return engine;
     }
 
     public Stage getPrimaryStage() {

@@ -1,5 +1,5 @@
 package com.codecool.dungeoncrawl.map;
-import com.codecool.dungeoncrawl.gui.BottomGridPane;
+import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;

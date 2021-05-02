@@ -1,5 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
-
+package com.codecool.dungeoncrawl.gui.window;
 import com.codecool.dungeoncrawl.map.Tiles;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

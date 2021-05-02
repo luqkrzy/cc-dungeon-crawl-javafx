@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
-import com.codecool.dungeoncrawl.gui.DisplayInventory;
+import com.codecool.dungeoncrawl.gui.window.DisplayInventory;
 import com.codecool.dungeoncrawl.gui.Gui;
 import com.codecool.dungeoncrawl.map.GameMap;
 import javafx.scene.input.KeyEvent;
@@ -40,7 +40,15 @@ public class KeyboardHandler {
                 gui.refresh();
                 displayInventory.show(map.getPlayer().getInventory());
             }
+
+            case F -> {
+                if (keyEvent.isControlDown()) {
+                    gui.popUpSaveWindow();
+                }
+            }
         }
+
+
     }
 
     public void setMap(GameMap map) {

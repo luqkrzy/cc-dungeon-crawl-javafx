@@ -1,5 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
-
+package com.codecool.dungeoncrawl.gui.window;
 import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Sword;

@@ -1,5 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
-
+package com.codecool.dungeoncrawl.gui.window;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Display {
