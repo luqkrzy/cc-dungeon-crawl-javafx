@@ -12,4 +12,5 @@ public interface PlayerDao {
     PlayerModel get(int id);
 
     List<PlayerModel> getAll();
+
 }

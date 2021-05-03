@@ -68,11 +68,10 @@ public class GameController {
     }
 
     public void popUpSaveWindow() {
-        boolean saveGame = SaveWindow.popUp();
-        if (saveGame) dbm.saveGame(map.getPlayer());
+        String saveName = SaveWindow.popUp();
+        if (!saveName.isEmpty()) dbm.save(map.getPlayer(), saveName);
 
     }
-
 
     public void startNewGame(String playerName) {
         if (playerName.length() > 0) {

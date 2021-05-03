@@ -10,11 +10,13 @@ import java.util.List;
 public class GameMap {
     private final int width;
     private final int height;
+    private final String mapName;
     private Cell[][] cells;
     private Player player;
     private final List<Monster> monsters;
 
-    public GameMap(int width, int height, CellType defaultCellType) {
+    public GameMap(String mapName, int width, int height, CellType defaultCellType) {
+        this.mapName = mapName;
         this.width = width;
         this.height = height;
         this.monsters = new ArrayList<>();
@@ -84,7 +86,9 @@ public class GameMap {
         for (int i = 0; i < items.size(); i++) {
             monsters.get(i).addItem(items.get(i));
         }
+    }
 
-
+    public String getMapName() {
+        return mapName;
     }
 }
