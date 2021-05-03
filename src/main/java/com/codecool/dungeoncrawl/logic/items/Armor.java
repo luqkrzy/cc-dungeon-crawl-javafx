@@ -8,12 +8,16 @@ public class Armor extends Item {
     public Armor(Cell cell, String name, int defense) {
         super(cell, name);
         this.defense = defense;
+        this.itemType = ItemType.ARMOR;
     }
 
     public Armor(String name) {
         super(name);
         this.defense = randomNumberInRange(2, 5);
+        this.itemType = ItemType.ARMOR;
+
     }
+
 
     public int getDefense() {
         return defense;

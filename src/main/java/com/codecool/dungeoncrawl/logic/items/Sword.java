@@ -5,15 +5,16 @@ import com.codecool.dungeoncrawl.map.Cell;
 public class Sword extends Item {
     private final int damage;
 
-
     public Sword(Cell cell, String name, int damage) {
         super(cell, name);
         this.damage = damage;
+        this.itemType = ItemType.SWORD;
     }
 
     public Sword(String name) {
         super(name);
         this.damage = randomNumberInRange(3, 5);
+        this.itemType = ItemType.SWORD;
     }
 
     public int getDamage() {

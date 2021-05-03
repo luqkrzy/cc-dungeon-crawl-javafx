@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.gui.menu;
-import com.codecool.dungeoncrawl.gui.Gui;
+
+import com.codecool.dungeoncrawl.gui.GameController;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,22 +11,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GameMenu {
-    protected final MenuItemTitle menuItemTitle;
-    protected final VBox vbox;
-    protected final Gui gui;
+    private final MenuItemTitle menuItemTitle;
+    private final VBox vbox;
+    private final GameController gameController;
 
-    public GameMenu(Gui gui, MenuItemTitle menuItemTitle) {
+    public GameMenu(GameController gameController, MenuItemTitle menuItemTitle) {
         this.menuItemTitle = menuItemTitle;
         this.vbox = new VBox(10);
-        this.gui = gui;
+        this.gameController = gameController;
     }
 
     public void setUpMenu() {
         Group group = setupButtons();
         setUpVbox(group);
-        Scene scene = new Scene(vbox, gui.getCanvas().getWidth(), gui.getCanvas().getHeight());
-        gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().show();
+        Scene scene = new Scene(vbox, gameController.getCanvas().getWidth(), gameController.getCanvas().getHeight());
+        gameController.getPrimaryStage().setScene(scene);
+        gameController.getPrimaryStage().show();
     }
 
     private void setUpVbox(Group group) {
@@ -61,14 +62,14 @@ public class GameMenu {
         });
 
         cnfBtn.setOnMouseClicked(actionEvent -> {
-            gui.startNewGame(playerName.getText());
+            gameController.startNewGame(playerName.getText());
 
         });
         cancelBtn.setOnMouseClicked(actionEvent -> {
             vbox.getChildren().removeAll(hBox, playerLabel, playerName);
             vbox.getChildren().addAll(label, newGameBtn, loadGameBtn, quitGameBtn);
         });
-        quitGameBtn.setOnMouseClicked(actionEvent -> gui.getPrimaryStage().close());
+        quitGameBtn.setOnMouseClicked(actionEvent -> gameController.getPrimaryStage().close());
         return group;
     }
 

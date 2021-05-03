@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.GameMap;
 
 public class Player extends Actor {
-    private final String name;
+    private String name;
 
     public Player(Cell cell, String name) {
         super(cell);
@@ -44,5 +44,9 @@ public class Player extends Actor {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

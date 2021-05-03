@@ -11,13 +11,15 @@ public class Key extends Item {
         super(cell, name);
         this.doorX = x;
         this.doorY = y;
+        this.itemType = ItemType.KEY;
+
     }
 
     public Key(String name, int x, int y) {
         super(name);
         this.doorX = x;
         this.doorY = y;
-
+        this.itemType = ItemType.KEY;
 
     }
 

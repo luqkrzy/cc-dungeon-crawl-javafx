@@ -17,16 +17,20 @@ public class GameDatabaseManager {
         playerDao = new PlayerDaoJdbc(dataSource);
     }
 
+    public void saveGame(Player player) {
+        savePlayer(player);
+    }
+
     public void savePlayer(Player player) {
-        PlayerModel model = new PlayerModel(player);
-        playerDao.add(model);
+        PlayerModel playerModel = new PlayerModel(player);
+        playerDao.add(playerModel);
     }
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = "test";
-        String user = "test";
-        String password = "test";
+        String dbName = System.getenv("DB_NAME");
+        String user = System.getenv("USER");
+        String password = System.getenv("PASSWORD");
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);

@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.gui;
+import com.codecool.dungeoncrawl.db.GameDatabaseManager;
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.menu.MenuItemTitle;
 import com.codecool.dungeoncrawl.gui.window.*;
@@ -14,20 +15,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Gui {
-    protected GameMap map;
-    protected final Canvas canvas;
-    protected final GraphicsContext context;
-    protected final RightGridPane rightGridPane;
-    protected final BottomGridPane bottomGridPane;
-    protected final DisplayInventory displayInventory;
-    protected final DisplayGameOver displayGameOver;
-    protected final KeyboardHandler keyboardHandler;
-    protected final Engine engine;
-    protected Stage primaryStage;
+import java.sql.SQLException;
+
+public class GameController {
+    private final GameDatabaseManager dbm;
+    private GameMap map;
+    private final Canvas canvas;
+    private final GraphicsContext context;
+    private final RightGridPane rightGridPane;
+    private final BottomGridPane bottomGridPane;
+    private final DisplayInventory displayInventory;
+    private final DisplayGameOver displayGameOver;
+    private final KeyboardHandler keyboardHandler;
+    private final Engine engine;
+    private Stage primaryStage;
     // private final Timeline timeline;
 
-    public Gui() {
+    public GameController() {
+        this.dbm = new GameDatabaseManager();
         this.map = MapLoader.loadMap("/map.txt", "anonymous");
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
@@ -37,15 +42,24 @@ public class Gui {
         this.bottomGridPane = new BottomGridPane();
         this.displayInventory = new DisplayInventory(context, canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
         this.displayGameOver = new DisplayGameOver(context, canvas.getWidth() / 2, canvas.getHeight() / 2);
-        this.keyboardHandler = new KeyboardHandler(this, displayInventory, map);
+        this.keyboardHandler = new KeyboardHandler(this);
         this.engine = new Engine(map, context, displayGameOver, rightGridPane, keyboardHandler);
         // this.timeline = initTimeline();
     }
 
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        connectToDatabase();
         GameMenu mainMenu = new GameMenu(this, MenuItemTitle.DUNGEON_CRAWL);
         mainMenu.setUpMenu();
+    }
+
+    private void connectToDatabase() {
+        try {
+            dbm.setup();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void setUpGameOverMenu() {
@@ -54,13 +68,15 @@ public class Gui {
     }
 
     public void popUpSaveWindow() {
-        SaveWindow.popUp();
+        boolean saveGame = SaveWindow.popUp();
+        if (saveGame) dbm.saveGame(map.getPlayer());
 
     }
 
 
     public void startNewGame(String playerName) {
         if (playerName.length() > 0) {
+            map.getPlayer().setName(playerName);
             BorderPane borderPane = setUpBorderPane();
             Scene scene = new Scene(borderPane);
             primaryStage.setScene(scene);
@@ -96,6 +112,10 @@ public class Gui {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public DisplayInventory getDisplayInventory() {
+        return displayInventory;
     }
 
     // public void cycleRefresh() {

@@ -7,7 +7,8 @@ import java.util.Random;
 
 public abstract class Item implements Drawable {
     private Cell cell;
-    private String name;
+    private final String name;
+    protected ItemType itemType;
     private final Random random;
 
     public Item(String name) {
@@ -46,5 +47,7 @@ public abstract class Item implements Drawable {
         return name;
     }
 
-
+    public int getItemType() {
+        return itemType.getType();
+    }
 }

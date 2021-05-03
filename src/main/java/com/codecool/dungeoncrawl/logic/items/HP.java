@@ -8,11 +8,15 @@ public class HP extends Item {
     public HP(Cell cell, String name) {
         super(cell, name);
         this.healthPoints = randomNumberInRange(7, 13);
+        this.itemType = ItemType.HP;
+
     }
 
     public HP(String name) {
         super(name);
         this.healthPoints = randomNumberInRange(7, 13);
+        this.itemType = ItemType.HP;
+
     }
 
     public int getHealthPoints() {

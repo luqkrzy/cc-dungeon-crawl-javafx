@@ -6,6 +6,8 @@ import com.codecool.dungeoncrawl.model.GameState;
 import java.util.List;
 
 public class GameStateDaoJdbc implements GameStateDao {
+
+
     @Override
     public void add(GameState state) {
 

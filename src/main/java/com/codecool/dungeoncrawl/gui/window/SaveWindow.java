@@ -10,12 +10,15 @@ import javafx.stage.StageStyle;
 public class SaveWindow {
     private final static Stage savePopup = new Stage(StageStyle.DECORATED);
 
-    public static void popUp() {
+
+    public static boolean popUp() {
+        boolean[] saveGame = new boolean[]{false};
         savePopup.setTitle(MenuItemTitle.SAVE.getTitle());
         Button saveButton = new Button(MenuItemTitle.SAVE.getTitle());
         Button cancelButton = new Button(MenuItemTitle.CANCEL.getTitle());
         saveButton.setOnAction(event -> {
             System.out.println("Save to database");
+            saveGame[0] = true;
             close();
         });
         cancelButton.setOnAction(event -> close());
@@ -23,6 +26,7 @@ public class SaveWindow {
         Scene scene = new Scene(hBox);
         savePopup.setScene(scene);
         savePopup.showAndWait();
+        return saveGame[0];
     }
 
     private static void close() {
