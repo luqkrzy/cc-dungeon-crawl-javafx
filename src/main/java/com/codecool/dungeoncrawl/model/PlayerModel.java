@@ -1,6 +1,9 @@
 package com.codecool.dungeoncrawl.model;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.util.List;
 
 public class PlayerModel extends BaseModel {
     private String currentMap;
@@ -10,6 +13,7 @@ public class PlayerModel extends BaseModel {
     private int y;
     private int defense;
     private int attack;
+    private List<Item> inventory;
 
 
     public PlayerModel(Player player) {
@@ -20,6 +24,7 @@ public class PlayerModel extends BaseModel {
         this.defense = player.getDefense();
         this.attack = player.getAttack();
         this.hp = player.getHealth();
+        this.inventory = player.getInventory();
     }
 
 
@@ -65,5 +70,9 @@ public class PlayerModel extends BaseModel {
 
     public String getCurrentMap() {
         return currentMap;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
     }
 }

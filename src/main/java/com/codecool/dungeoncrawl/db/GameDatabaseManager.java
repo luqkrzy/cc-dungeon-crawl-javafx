@@ -1,11 +1,14 @@
 package com.codecool.dungeoncrawl.db;
 
 import com.codecool.dungeoncrawl.db.dao.GameStateDao;
+import com.codecool.dungeoncrawl.db.dao.InventoryDao;
 import com.codecool.dungeoncrawl.db.dao.PlayerDao;
 import com.codecool.dungeoncrawl.db.jdbc.GameStateDaoJdbc;
+import com.codecool.dungeoncrawl.db.jdbc.InventoryDaoJdbc;
 import com.codecool.dungeoncrawl.db.jdbc.PlayerDaoJdbc;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameStateModel;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
@@ -14,11 +17,13 @@ import java.sql.SQLException;
 public class GameDatabaseManager {
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
+    private InventoryDao inventoryDao;
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
+        inventoryDao = new InventoryDaoJdbc(dataSource);
     }
 
     public void save(Player player, String saveName) {
@@ -26,7 +31,7 @@ public class GameDatabaseManager {
         if (ifSaveExist) {
             update(player, saveName);
         } else {
-            saveGameState(player, saveName);
+            saveGame(player, saveName);
         }
     }
 
@@ -36,16 +41,22 @@ public class GameDatabaseManager {
         playerDao.update(playerModel);
         GameStateModel gameStateModel = new GameStateModel(playerModel, saveName);
         gameStateDao.update(gameStateModel);
-
-
+        inventoryDao.update(new InventoryModel(playerModel));
     }
 
-    private void saveGameState(Player player, String saveName) {
+    private void saveGame(Player player, String saveName) {
         PlayerModel playerModel = savePlayer(player);
-        saveState(saveName, playerModel);
+        saveGameState(saveName, playerModel);
+        savePlayerInventory(playerModel);
+
     }
 
-    private void saveState(String saveName, PlayerModel playerModel) {
+    private void savePlayerInventory(PlayerModel playerModel) {
+        InventoryModel inventoryModel = new InventoryModel(playerModel);
+        inventoryDao.addAll(inventoryModel);
+    }
+
+    private void saveGameState(String saveName, PlayerModel playerModel) {
         GameStateModel gameStateModel = new GameStateModel(playerModel, saveName);
         gameStateDao.add(gameStateModel);
         System.out.println("GameState id: " + gameStateModel.getId());

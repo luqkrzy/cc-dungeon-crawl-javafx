@@ -52,8 +52,6 @@ public class PlayerDaoJdbc implements PlayerDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @Override
