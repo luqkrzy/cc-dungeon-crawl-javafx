@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.map.Cell;
 
 public class Armor extends Item {
-    private final int defense;
+    private int defense;
 
     public Armor(Cell cell, String name, int defense) {
         super(cell, name);
@@ -16,6 +16,11 @@ public class Armor extends Item {
         this.defense = randomNumberInRange(2, 5);
         this.itemType = ItemType.ARMOR;
 
+    }
+
+    public Armor(int defense) {
+        this.defense = defense;
+        this.itemType = ItemType.ARMOR;
     }
 
 

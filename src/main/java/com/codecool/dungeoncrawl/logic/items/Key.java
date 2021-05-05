@@ -3,8 +3,8 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.map.Cell;
 
 public class Key extends Item {
-    private final int doorX;
-    private final int doorY;
+    private int doorX;
+    private int doorY;
 
 
     public Key(Cell cell, String name, int x, int y) {
@@ -21,6 +21,10 @@ public class Key extends Item {
         this.doorY = y;
         this.itemType = ItemType.KEY;
 
+    }
+
+    public Key() {
+        this.itemType = ItemType.KEY;
     }
 
 

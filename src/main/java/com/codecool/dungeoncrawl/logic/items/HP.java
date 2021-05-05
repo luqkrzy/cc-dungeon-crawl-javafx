@@ -19,6 +19,11 @@ public class HP extends Item {
 
     }
 
+    public HP(int healthPoints) {
+        this.healthPoints = healthPoints;
+        this.itemType = ItemType.HP;
+    }
+
     public int getHealthPoints() {
         return healthPoints;
     }

@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.db.dao.InventoryDao;
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 
 import javax.sql.DataSource;
@@ -29,6 +29,7 @@ public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
             statement.setInt(2, item.getItemType());
             statement.setInt(3, getValue(item));
             statement.executeUpdate();
+            int a = 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +56,34 @@ public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
 
     @Override
     public InventoryModel get(int id) {
-        return null;
+        try (Connection connection = dataSource.getConnection()) {
+            final String sql = "SELECT * FROM inventory WHERE player_id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            InventoryModel inventoryModel = new InventoryModel(id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int type = rs.getInt("type");
+                int value = rs.getInt("value");
+                Item item = getItem(type, value);
+                inventoryModel.addToInventory(item);
+            }
+            return inventoryModel;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Item getItem(int type, int value) {
+        Item item;
+        switch (type) {
+            case 1 -> item = new Key();
+            case 2 -> item = new Sword(value);
+            case 3 -> item = new HP(value);
+            case 4 -> item = new Armor(value);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return item;
     }
 
     @Override

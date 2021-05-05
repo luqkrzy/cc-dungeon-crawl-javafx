@@ -14,6 +14,7 @@ public class GameStateModel extends BaseModel {
         this.playerId = playerId;
         this.currentMap = currentMap;
         this.saveName = saveName;
+        this.savedAt = savedAt;
     }
 
     public GameStateModel(int playerId, String currentMap, String saveName) {

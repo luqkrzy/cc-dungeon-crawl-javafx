@@ -48,7 +48,7 @@ public class GameDatabaseManager {
         playerDao.update(actorModel);
         GameStateModel gameStateModel = new GameStateModel(actorModel.getId(), player.getCell().getGameMap().getMapName(), saveName);
         gameStateDao.update(gameStateModel);
-        inventoryDao.update(new InventoryModel(actorModel));
+        inventoryDao.update(new InventoryModel(actorModel.getId(), actorModel.getInventory()));
     }
 
     private void saveGame(Player player, String saveName) {
@@ -64,7 +64,7 @@ public class GameDatabaseManager {
     }
 
     private void savePlayerInventory(ActorModel actorModel) {
-        InventoryModel inventoryModel = new InventoryModel(actorModel);
+        InventoryModel inventoryModel = new InventoryModel(actorModel.getId(), actorModel.getInventory());
         inventoryDao.addAll(inventoryModel);
     }
 

@@ -7,9 +7,9 @@ import java.util.Random;
 
 public abstract class Item implements Drawable {
     private Cell cell;
-    private final String name;
+    private String name;
     protected ItemType itemType;
-    private final Random random;
+    private Random random;
 
     public Item(String name) {
         this.random = new Random();
@@ -21,6 +21,9 @@ public abstract class Item implements Drawable {
         this.name = name;
         this.cell.setItem(this);
         this.random = new Random();
+    }
+
+    public Item() {
     }
 
     public int randomNumberInRange(int min, int max) {
