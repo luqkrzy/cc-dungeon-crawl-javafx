@@ -28,6 +28,7 @@ public class SaveWindow {
                 close();
             }
         });
+        cancelButton.setCancelButton(true);
         cancelButton.setOnAction(event -> close());
         HBox decisionBox = new HBox(saveButton, cancelButton);
         decisionBox.setAlignment(Pos.CENTER);

@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
 import com.codecool.dungeoncrawl.map.Tiles;
+import com.codecool.dungeoncrawl.model.GameStateModel;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameController {
     private final GameDatabaseManager dbm;
@@ -51,7 +53,7 @@ public class GameController {
         this.primaryStage = primaryStage;
         connectToDatabase();
         GameMenu mainMenu = new GameMenu(this, MenuItemTitle.DUNGEON_CRAWL);
-        mainMenu.setUpMenu();
+        mainMenu.initMainMenu();
     }
 
     private void connectToDatabase() {
@@ -115,6 +117,11 @@ public class GameController {
 
     public DisplayInventory getDisplayInventory() {
         return displayInventory;
+    }
+
+    public List<GameStateModel> getAllSaves() {
+        return dbm.getAllSaves();
+
     }
 
     // public void cycleRefresh() {

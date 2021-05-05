@@ -56,7 +56,7 @@ public class Engine {
     private void gameOver() {
         BottomGridPane.log("GAME OVER!");
         map.refresh(context);
-        gameOverMenu.setUpMenu();
+        gameOverMenu.initMainMenu();
     }
 
     private void lookForItem(Cell cell) {
