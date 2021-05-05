@@ -9,36 +9,36 @@ import java.util.Random;
 public class FightEngine {
     Random random = new Random();
 
-    public void fight(Player player, Monster monster) {
-            boolean b = random.nextBoolean();
-            round(b ? player : monster, b ? monster : player);
-    }
-
-    public void round(Actor attacker, Actor defender) {
-
-        List<Monster> monsters = attacker.getCell().getGameMap().getMonsters();
-
-        int attackerAtk = attacker.getAttack();
-        int attackerDef = attacker.getDefense();
-        int attackerHealth = attacker.getHealth();
-
-        int defenderAtk = defender.getAttack();
-        int defenderDef = defender.getDefense();
-        int defenderHealth = defender.getHealth();
-        int damageCaused = attackerAtk - defenderDef;
-        defender.setHealth(defenderHealth - damageCaused);
-        BottomGridPane.log(String.format("%s's hit caused %d damage to %s", attacker.getInstanceName(), damageCaused, defender.getInstanceName()));
-        if (defender.isAlive()) {
-            damageCaused = defenderAtk - attackerDef;
-            attacker.setHealth(attackerHealth - damageCaused);
-        } else {
-            defender.die();
-            monsters.remove(defender);
-            BottomGridPane.log(String.format("%s died", defender.getInstanceName()));
-
-        }
-
-    }
+    // public void fight(Player player, Monster monster) {
+    //         boolean b = random.nextBoolean();
+    //         round(b ? player : monster, b ? monster : player);
+    // }
+    //
+    // public void round(Actor attacker, Actor defender) {
+    //
+    //     List<Monster> monsters = attacker.getCell().getGameMap().getMonsters();
+    //
+    //     int attackerAtk = attacker.getAttack();
+    //     int attackerDef = attacker.getDefense();
+    //     int attackerHealth = attacker.getHealth();
+    //
+    //     int defenderAtk = defender.getAttack();
+    //     int defenderDef = defender.getDefense();
+    //     int defenderHealth = defender.getHealth();
+    //     int damageCaused = attackerAtk - defenderDef;
+    //     defender.setHealth(defenderHealth - damageCaused);
+    //     BottomGridPane.log(String.format("%s's hit caused %d damage to %s", attacker.getInstanceName(), damageCaused, defender.getInstanceName()));
+    //     if (defender.isAlive()) {
+    //         damageCaused = defenderAtk - attackerDef;
+    //         attacker.setHealth(attackerHealth - damageCaused);
+    //     } else {
+    //         defender.die();
+    //         monsters.remove(defender);
+    //         BottomGridPane.log(String.format("%s died", defender.getInstanceName()));
+    //
+    //     }
+    //
+    // }
 
 
     public void fight2(Player player, Monster monster) {

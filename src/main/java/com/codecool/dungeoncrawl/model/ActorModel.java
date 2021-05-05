@@ -1,13 +1,14 @@
 package com.codecool.dungeoncrawl.model;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.List;
 
-public class PlayerModel extends BaseModel {
+public class ActorModel extends BaseModel {
     private String currentMap;
     private String playerName;
+    private String type;
     private int hp;
     private int x;
     private int y;
@@ -16,24 +17,24 @@ public class PlayerModel extends BaseModel {
     private List<Item> inventory;
 
 
-    public PlayerModel(Player player) {
-        this.currentMap = player.getCell().getGameMap().getMapName();
-        this.playerName = player.getName();
-        this.x = player.getX();
-        this.y = player.getY();
-        this.defense = player.getDefense();
-        this.attack = player.getAttack();
-        this.hp = player.getHealth();
-        this.inventory = player.getInventory();
+    public ActorModel(Actor actor) {
+        this.currentMap = actor.getCell().getGameMap().getMapName();
+        this.playerName = actor.getName();
+        this.type = actor.getClassName();
+        this.x = actor.getX();
+        this.y = actor.getY();
+        this.defense = actor.getDefense();
+        this.attack = actor.getAttack();
+        this.hp = actor.getHealth();
+        this.inventory = actor.getInventory();
     }
-
 
     public String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public void setPlayerName(String actorName) {
+        this.playerName = actorName;
     }
 
     public int getHp() {
@@ -74,5 +75,13 @@ public class PlayerModel extends BaseModel {
 
     public List<Item> getInventory() {
         return inventory;
+    }
+
+    public Item getFirstItem() {
+        return inventory.get(0);
+    }
+
+    public String getType() {
+        return type;
     }
 }

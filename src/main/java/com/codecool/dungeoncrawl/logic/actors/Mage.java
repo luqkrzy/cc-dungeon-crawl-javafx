@@ -5,7 +5,6 @@ import com.codecool.dungeoncrawl.map.CellType;
 
 public class Mage extends Monster {
 
-
     public Mage(Cell cell) {
         super(cell);
         setHealth(60);

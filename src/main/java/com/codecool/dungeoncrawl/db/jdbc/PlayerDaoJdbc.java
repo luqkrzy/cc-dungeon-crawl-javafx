@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.db.dao.PlayerDao;
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.model.ActorModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -15,9 +15,9 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void add(PlayerModel player) {
+    public void add(ActorModel player) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO player (player_name, hp, x, y, defense, attack) VALUES (?, ?, ?, ?, ?, ?)";
+            final String sql = "INSERT INTO player (player_name, hp, x, y, defense, attack) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, player.getPlayerName());
             statement.setInt(2, player.getHp());
@@ -37,9 +37,9 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void update(PlayerModel player) {
+    public void update(ActorModel player) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=?, defense=?, attack=? WHERE id=?";
+            final String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=?, defense=?, attack=? WHERE id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, player.getPlayerName());
             statement.setInt(2, player.getHp());
@@ -55,12 +55,12 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public PlayerModel get(int id) {
+    public ActorModel get(int id) {
         return null;
     }
 
     @Override
-    public List<PlayerModel> getAll() {
+    public List<ActorModel> getAll() {
         return null;
     }
 }

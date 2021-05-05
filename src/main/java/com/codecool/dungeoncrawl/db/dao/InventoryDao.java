@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.db.dao;
 
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.model.InventoryModel;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.util.List;
 

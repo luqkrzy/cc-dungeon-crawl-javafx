@@ -68,7 +68,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public boolean isSaveNameExist(String saveName) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT * FROM game_state WHERE save_name=?";
+            final String sql = "SELECT * FROM game_state WHERE save_name=?";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, saveName);
             ResultSet resultSet = statement.executeQuery();
@@ -87,7 +87,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public int getPlayerIdBySaveName(String saveName) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT player_id FROM game_state WHERE save_name=?";
+            final String sql = "SELECT player_id FROM game_state WHERE save_name=?";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, saveName);
             ResultSet resultSet = statement.executeQuery();

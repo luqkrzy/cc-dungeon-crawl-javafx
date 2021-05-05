@@ -1,17 +1,14 @@
 package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.db.dao.InventoryDao;
-import com.codecool.dungeoncrawl.logic.items.Armor;
-import com.codecool.dungeoncrawl.logic.items.HP;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Sword;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class InventoryDaoJdbc implements InventoryDao {
+public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
     private DataSource dataSource;
 
     public InventoryDaoJdbc(DataSource dataSource) {
@@ -37,19 +34,6 @@ public class InventoryDaoJdbc implements InventoryDao {
         }
     }
 
-    private int getValue(Item item) {
-        if (item instanceof Armor) {
-            return ((Armor) item).getDefense();
-        }
-        if (item instanceof HP) {
-            return ((HP) item).getHealthPoints();
-        }
-        if (item instanceof Sword) {
-            return ((Sword) item).getDamage();
-        } else {
-            return 0;
-        }
-    }
 
     public void delete(int playerId) {
         try (Connection conn = dataSource.getConnection()) {

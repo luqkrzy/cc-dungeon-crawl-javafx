@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Actor implements Drawable {
+    protected String name;
     protected Cell cell;
     protected int health = 10;
     protected int defense;
@@ -116,4 +117,15 @@ public abstract class Actor implements Drawable {
         return false;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getClassName() {
+        return this.getInstanceName();
+    }
 }
