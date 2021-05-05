@@ -1,9 +1,9 @@
 package com.codecool.dungeoncrawl.logic.engine;
+
+import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.gui.window.DisplayGameOver;
 import com.codecool.dungeoncrawl.gui.window.RightGridPane;
-import com.codecool.dungeoncrawl.gui.menu.GameMenu;
-import com.codecool.dungeoncrawl.gui.window.SaveWindow;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;

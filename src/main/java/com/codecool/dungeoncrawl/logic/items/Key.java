@@ -23,7 +23,9 @@ public class Key extends Item {
 
     }
 
-    public Key() {
+    public Key(int x, int y) {
+        this.doorX = x;
+        this.doorY = y;
         this.itemType = ItemType.KEY;
     }
 

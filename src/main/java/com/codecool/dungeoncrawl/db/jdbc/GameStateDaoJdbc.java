@@ -104,7 +104,6 @@ public class GameStateDaoJdbc implements GameStateDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -116,7 +115,6 @@ public class GameStateDaoJdbc implements GameStateDao {
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             return resultSet.getInt("player_id");
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -126,7 +124,6 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public GameStateModel get(int id) {
         return null;
-
     }
 
 

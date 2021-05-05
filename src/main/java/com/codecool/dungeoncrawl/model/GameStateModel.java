@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
-import java.util.ArrayList;
 import java.sql.Date;
-import java.util.List;
 
 public class GameStateModel extends BaseModel {
     private int playerId;

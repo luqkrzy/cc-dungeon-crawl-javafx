@@ -9,7 +9,6 @@ public class InventoryModel extends BaseModel {
     private int playerId;
     private List<Item> inventory;
 
-
     public InventoryModel(int playerId, List<Item> inventory) {
         this.playerId = playerId;
         this.inventory = inventory;

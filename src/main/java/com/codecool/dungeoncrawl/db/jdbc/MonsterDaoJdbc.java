@@ -33,9 +33,8 @@ public class MonsterDaoJdbc implements MonsterDao, ItemType {
             statement.setInt(6, monster.getDefense());
             statement.setInt(7, monster.getAttack());
             statement.setInt(8, monster.getFirstItem().getItemType());
-            statement.setInt(9, getItemValue(monster.getFirstItem()));
+            statement.setDouble(9, getItemValue(monster.getFirstItem()));
             statement.executeUpdate();
-            int a = 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,7 +98,7 @@ public class MonsterDaoJdbc implements MonsterDao, ItemType {
                     rs.getInt("attack"),
                     rs.getInt("hp"));
             int itemType = rs.getInt("item_type");
-            int itemValue = rs.getInt("item_value");
+            double itemValue = rs.getDouble("item_value");
             Item item = getItem(itemType, itemValue);
             monsterModel.addToInventory(item);
             monsterModel.setId(rs.getInt(1));

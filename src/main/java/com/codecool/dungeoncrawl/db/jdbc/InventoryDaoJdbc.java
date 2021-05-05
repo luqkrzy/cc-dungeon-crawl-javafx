@@ -27,14 +27,13 @@ public class InventoryDaoJdbc implements InventoryDao, ItemType {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, playerId);
             statement.setInt(2, item.getItemType());
-            statement.setInt(3, getItemValue(item));
+            statement.setDouble(3, getItemValue(item));
             statement.executeUpdate();
             int a = 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     public void delete(int playerId) {
         try (Connection conn = dataSource.getConnection()) {
@@ -53,7 +52,6 @@ public class InventoryDaoJdbc implements InventoryDao, ItemType {
         addAll(inventoryModel);
     }
 
-
     @Override
     public InventoryModel get(int id) {
         try (Connection connection = dataSource.getConnection()) {
@@ -64,7 +62,7 @@ public class InventoryDaoJdbc implements InventoryDao, ItemType {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int type = rs.getInt("type");
-                int value = rs.getInt("value");
+                double value = rs.getDouble("value");
                 Item item = getItem(type, value);
                 inventoryModel.addToInventory(item);
             }
