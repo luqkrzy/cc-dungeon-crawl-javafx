@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.List;
 
 public class ActorModel extends BaseModel {
-    private String currentMap;
     private String playerName;
     private String type;
     private int hp;
@@ -18,7 +17,6 @@ public class ActorModel extends BaseModel {
 
 
     public ActorModel(Actor actor) {
-        this.currentMap = actor.getCell().getGameMap().getMapName();
         this.playerName = actor.getName();
         this.type = actor.getClassName();
         this.x = actor.getX();
@@ -28,6 +26,7 @@ public class ActorModel extends BaseModel {
         this.hp = actor.getHealth();
         this.inventory = actor.getInventory();
     }
+
 
     public String getPlayerName() {
         return playerName;
@@ -67,10 +66,6 @@ public class ActorModel extends BaseModel {
 
     public int getAttack() {
         return attack;
-    }
-
-    public String getCurrentMap() {
-        return currentMap;
     }
 
     public List<Item> getInventory() {

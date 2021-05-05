@@ -5,17 +5,21 @@ import java.sql.Date;
 import java.util.List;
 
 public class GameStateModel extends BaseModel {
+    private int playerId;
     private Date savedAt;
     private String currentMap;
     private List<String> discoveredMaps = new ArrayList<>();
-    private ActorModel actorModel;
     private String saveName;
 
-    public GameStateModel(ActorModel actorModel, String saveName) {
-        this.currentMap = actorModel.getCurrentMap();
-        this.actorModel = actorModel;
+    public GameStateModel(int playerId, String currentMap, String saveName) {
+        this.playerId = playerId;
+        this.currentMap = currentMap;
         this.saveName = saveName;
 
+    }
+
+    public int getPlayerId() {
+        return playerId;
     }
 
     public Date getSavedAt() {
@@ -40,14 +44,6 @@ public class GameStateModel extends BaseModel {
 
     public void addDiscoveredMap(String map) {
         this.discoveredMaps.add(map);
-    }
-
-    public ActorModel getPlayerModel() {
-        return actorModel;
-    }
-
-    public void setPlayerModel(ActorModel actorModel) {
-        this.actorModel = actorModel;
     }
 
     public String getSaveName() {

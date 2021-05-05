@@ -15,21 +15,21 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void add(ActorModel player) {
+    public void add(ActorModel playerModel) {
         try (Connection conn = dataSource.getConnection()) {
             final String sql = "INSERT INTO player (player_name, hp, x, y, defense, attack) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getX());
-            statement.setInt(4, player.getY());
-            statement.setInt(5, player.getDefense());
-            statement.setInt(6, player.getAttack());
+            statement.setString(1, playerModel.getPlayerName());
+            statement.setInt(2, playerModel.getHp());
+            statement.setInt(3, playerModel.getX());
+            statement.setInt(4, playerModel.getY());
+            statement.setInt(5, playerModel.getDefense());
+            statement.setInt(6, playerModel.getAttack());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
             int id = resultSet.getInt(1);
-            player.setId(id);
+            playerModel.setId(id);
             // return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -37,17 +37,17 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void update(ActorModel player) {
+    public void update(ActorModel playerModel) {
         try (Connection conn = dataSource.getConnection()) {
             final String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=?, defense=?, attack=? WHERE id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getX());
-            statement.setInt(4, player.getY());
-            statement.setInt(5, player.getDefense());
-            statement.setInt(6, player.getAttack());
-            statement.setInt(7, player.getId());
+            statement.setString(1, playerModel.getPlayerName());
+            statement.setInt(2, playerModel.getHp());
+            statement.setInt(3, playerModel.getX());
+            statement.setInt(4, playerModel.getY());
+            statement.setInt(5, playerModel.getDefense());
+            statement.setInt(6, playerModel.getAttack());
+            statement.setInt(7, playerModel.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -56,6 +56,17 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public ActorModel get(int id) {
+        // try(Connection connection = dataSource.getConnection()){
+        //     PreparedStatement ps = connection.prepareStatement("SELECT * FROM player WHERE id = ?");
+        //     ps.setInt(1, id);
+        //     ResultSet rs = ps.executeQuery();
+        //     if (! rs.next()) return null;
+        //     // ActorModel playerModel = new ActorModel();
+        //     playerModel.setId(rs.getInt(1));
+        //     return playerModel;
+        // } catch (SQLException e){
+        //     System.out.println(e.getMessage());
+        // }
         return null;
     }
 
