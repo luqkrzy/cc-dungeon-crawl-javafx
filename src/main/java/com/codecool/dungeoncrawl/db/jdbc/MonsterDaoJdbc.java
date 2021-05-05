@@ -2,13 +2,18 @@ package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.db.dao.MonsterDao;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.model.ActorModel;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterDaoJdbc implements MonsterDao, GetItemValue {
+public class MonsterDaoJdbc implements MonsterDao, ItemType {
     private DataSource dataSource;
 
     public MonsterDaoJdbc(DataSource dataSource) {
@@ -28,8 +33,9 @@ public class MonsterDaoJdbc implements MonsterDao, GetItemValue {
             statement.setInt(6, monster.getDefense());
             statement.setInt(7, monster.getAttack());
             statement.setInt(8, monster.getFirstItem().getItemType());
-            statement.setInt(9, getValue(monster.getFirstItem()));
+            statement.setInt(9, getItemValue(monster.getFirstItem()));
             statement.executeUpdate();
+            int a = 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,8 +71,43 @@ public class MonsterDaoJdbc implements MonsterDao, GetItemValue {
 
     @Override
     public List<ActorModel> getAll(int playerId) {
-        return null;
+        List<ActorModel> monsters = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            final String sql = "SELECT * FROM monster WHERE player_id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, playerId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                ActorModel monsterModel = getMonsterModel(rs);
+                monsters.add(monsterModel);
+            }
+            return monsters;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    private ActorModel getMonsterModel(ResultSet rs) {
+        ActorModel monsterModel = null;
+        try {
+            monsterModel = new ActorModel(
+                    null,
+                    rs.getString("type"),
+                    rs.getInt("x"),
+                    rs.getInt("y"),
+                    rs.getInt("defense"),
+                    rs.getInt("attack"),
+                    rs.getInt("hp"));
+            int itemType = rs.getInt("item_type");
+            int itemValue = rs.getInt("item_value");
+            Item item = getItem(itemType, itemValue);
+            monsterModel.addToInventory(item);
+            monsterModel.setId(rs.getInt(1));
+            System.out.println(monsterModel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return monsterModel;
+    }
 
 }

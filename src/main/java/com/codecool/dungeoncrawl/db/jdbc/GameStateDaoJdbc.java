@@ -85,7 +85,6 @@ public class GameStateDaoJdbc implements GameStateDao {
                 rs.getString("current_map"),
                 rs.getString("save_name"));
         gameStateModel.setId(rs.getInt(1));
-        System.out.println(gameStateModel);
         return gameStateModel;
     }
 

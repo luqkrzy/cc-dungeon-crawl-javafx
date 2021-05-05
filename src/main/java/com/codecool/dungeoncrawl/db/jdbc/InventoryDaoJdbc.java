@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
+public class InventoryDaoJdbc implements InventoryDao, ItemType {
     private DataSource dataSource;
 
     public InventoryDaoJdbc(DataSource dataSource) {
@@ -27,7 +27,7 @@ public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, playerId);
             statement.setInt(2, item.getItemType());
-            statement.setInt(3, getValue(item));
+            statement.setInt(3, getItemValue(item));
             statement.executeUpdate();
             int a = 1;
         } catch (SQLException e) {
@@ -72,18 +72,6 @@ public class InventoryDaoJdbc implements InventoryDao, GetItemValue {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private Item getItem(int type, int value) {
-        Item item;
-        switch (type) {
-            case 1 -> item = new Key();
-            case 2 -> item = new Sword(value);
-            case 3 -> item = new HP(value);
-            case 4 -> item = new Armor(value);
-            default -> throw new IllegalStateException("Unexpected value: " + type);
-        }
-        return item;
     }
 
     @Override

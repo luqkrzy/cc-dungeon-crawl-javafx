@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.model;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActorModel extends BaseModel {
@@ -36,12 +37,18 @@ public class ActorModel extends BaseModel {
         this.defense = defense;
         this.attack = attack;
         this.hp = hp;
+        this.inventory = new ArrayList<>();
     }
 
 
     public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
     }
+
+    public void addToInventory(Item item) {
+        inventory.add(item);
+    }
+
 
     public String getActorName() {
         return actorName;
