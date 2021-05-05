@@ -45,7 +45,7 @@ public class MonsterDaoJdbc implements MonsterDao, GetItemValue {
         try (Connection conn = dataSource.getConnection()) {
             final String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=?, defense=?, attack=? WHERE id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, monster.getPlayerName());
+            statement.setString(1, monster.getActorName());
             statement.setInt(2, monster.getHp());
             statement.setInt(3, monster.getX());
             statement.setInt(4, monster.getY());
@@ -64,7 +64,7 @@ public class MonsterDaoJdbc implements MonsterDao, GetItemValue {
     }
 
     @Override
-    public List<ActorModel> getAll() {
+    public List<ActorModel> getAll(int playerId) {
         return null;
     }
 

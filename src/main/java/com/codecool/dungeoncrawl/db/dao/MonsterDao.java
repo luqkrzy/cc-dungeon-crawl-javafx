@@ -12,7 +12,7 @@ public interface MonsterDao {
 
     ActorModel get(int id);
 
-    List<ActorModel> getAll();
+    List<ActorModel> getAll(int playerId);
 
     void addAll(int playerId, List<Monster> monsters);
 }

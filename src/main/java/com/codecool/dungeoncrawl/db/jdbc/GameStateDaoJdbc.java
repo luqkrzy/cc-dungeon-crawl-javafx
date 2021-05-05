@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.model.GameStateModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateDaoJdbc implements GameStateDao {
@@ -19,12 +20,16 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void add(GameStateModel state) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO game_state (current_map, player_id, save_name) VALUES (?, ?, ?)";
+            final String sql = "INSERT INTO game_state (current_map, player_id, save_name) VALUES (?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, state.getCurrentMap());
             statement.setInt(2, state.getPlayerId());
             statement.setString(3, state.getSaveName());
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            int id = resultSet.getInt(1);
+            state.setId(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +38,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void update(GameStateModel state) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE game_state SET current_map=? WHERE player_id=?";
+            final String sql = "UPDATE game_state SET current_map=? WHERE player_id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, state.getCurrentMap());
             statement.setInt(2, state.getPlayerId());
@@ -45,20 +50,42 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public GameStateModel get(String saveName) {
-        try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT FROM game_state WHERE save_name=?";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM game_state WHERE save_name=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, saveName);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(resultSet);
-            }
-
+            ResultSet rs = statement.executeQuery();
+            if (!rs.next()) return null;
+            return getGameStateModel(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+    }
 
+    @Override
+    public List<GameStateModel> getAll() {
+        List<GameStateModel> gameStateList = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            final String sql = "SELECT * FROM game_state";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                gameStateList.add(getGameStateModel(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return gameStateList;
+    }
+
+    private GameStateModel getGameStateModel(ResultSet rs) throws SQLException {
+        GameStateModel gameStateModel = new GameStateModel(
+                rs.getInt("player_id"),
+                rs.getDate("saved_at"),
+                rs.getString("current_map"),
+                rs.getString("save_name"));
+        gameStateModel.setId(rs.getInt(1));
+        return gameStateModel;
     }
 
     @Override
@@ -102,8 +129,5 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     }
 
-    @Override
-    public List<GameStateModel> getAll() {
-        return null;
-    }
+
 }

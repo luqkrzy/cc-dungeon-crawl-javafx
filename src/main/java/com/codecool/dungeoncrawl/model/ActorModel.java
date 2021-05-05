@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.List;
 
 public class ActorModel extends BaseModel {
-    private String playerName;
+    private String actorName;
     private String type;
     private int hp;
     private int x;
@@ -17,7 +17,7 @@ public class ActorModel extends BaseModel {
 
 
     public ActorModel(Actor actor) {
-        this.playerName = actor.getName();
+        this.actorName = actor.getName();
         this.type = actor.getClassName();
         this.x = actor.getX();
         this.y = actor.getY();
@@ -28,12 +28,27 @@ public class ActorModel extends BaseModel {
     }
 
 
-    public String getPlayerName() {
-        return playerName;
+    public ActorModel(String actorName, String actorType, int x, int y, int defense, int attack, int hp) {
+        this.actorName = actorName;
+        this.type = actorType;
+        this.x = x;
+        this.y = y;
+        this.defense = defense;
+        this.attack = attack;
+        this.hp = hp;
     }
 
-    public void setPlayerName(String actorName) {
-        this.playerName = actorName;
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
+    }
+
+    public String getActorName() {
+        return actorName;
+    }
+
+    public void setActorName(String actorName) {
+        this.actorName = actorName;
     }
 
     public int getHp() {

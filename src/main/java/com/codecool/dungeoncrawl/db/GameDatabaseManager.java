@@ -10,6 +10,7 @@ import com.codecool.dungeoncrawl.db.jdbc.MonsterDaoJdbc;
 import com.codecool.dungeoncrawl.db.jdbc.PlayerDaoJdbc;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.GameSaveModel;
 import com.codecool.dungeoncrawl.model.GameStateModel;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.ActorModel;
@@ -84,6 +85,20 @@ public class GameDatabaseManager {
         final boolean saveNameExist = gameStateDao.isSaveNameExist(saveName);
         System.out.println(saveNameExist ? "Save exist - overwriting" : "New Save");
         return saveNameExist;
+    }
+
+
+    public GameSaveModel loadGame(String saveName) {
+        GameStateModel gameStateModel = gameStateDao.get(saveName);
+        ActorModel playerModel = playerDao.get(gameStateModel.getPlayerId());
+        InventoryModel inventoryModel = inventoryDao.get(gameStateModel.getPlayerId());
+        playerModel.setInventory(inventoryModel.getInventory());
+        List<ActorModel> monsters = monsterDao.getAll(gameStateModel.getPlayerId());
+        return new GameSaveModel(gameStateModel, playerModel, monsters, inventoryModel);
+    }
+
+    public List<GameStateModel> getAllSaves() {
+        return gameStateDao.getAll();
     }
 
 
