@@ -1,11 +1,11 @@
 package com.codecool.dungeoncrawl.map;
-import com.codecool.dungeoncrawl.logic.actors.Monster;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class GameMap {
     private final int width;
@@ -13,7 +13,7 @@ public class GameMap {
     private final String mapName;
     private Cell[][] cells;
     private Player player;
-    private final List<Monster> monsters;
+    private List<Monster> monsters;
 
     public GameMap(String mapName, int width, int height, CellType defaultCellType) {
         this.mapName = mapName;
@@ -91,4 +91,36 @@ public class GameMap {
     public String getMapName() {
         return mapName;
     }
+
+    public void setMonsters(List<Monster> monsters) {
+        this.monsters = monsters;
+    }
+
+    public String layoutToString() {
+        StringJoiner mapString = new StringJoiner("\n");
+        mapString.add(width + " " + height);
+        for (int y = 0; y < height; y++) {
+            StringBuilder r = new StringBuilder();
+            for (int x = 0; x < width; x++) {
+                if (cells[x][y].getItem() instanceof Key) r.append("k");
+                else if (cells[x][y].getItem() instanceof Sword) r.append(">");
+                else if (cells[x][y].getItem() instanceof Armor) r.append("[");
+                else if (cells[x][y].getItem() instanceof HP) r.append("h");
+                else if (cells[x][y].getActor() instanceof Ghost) r.append("g");
+                else if (cells[x][y].getActor() instanceof Skeleton) r.append("s");
+                else if (cells[x][y].getActor() instanceof Player) r.append("@");
+                else if (cells[x][y].getActor() instanceof Mage) r.append("m");
+                else if (cells[x][y].getTileName().equals("empty")) r.append(" ");
+                else if (cells[x][y].getTileName().equals("floor")) r.append(".");
+                else if (cells[x][y].getTileName().equals("wall")) r.append("#");
+                else if (cells[x][y].getTileName().equals("doors")) r.append("d");
+                else if (cells[x][y].getTileName().equals("opendoors")) r.append("o");
+                else if (cells[x][y].getTileName().equals("stairs")) r.append("{");
+                else if (cells[x][y].getTileName().equals("spike")) r.append("<");
+            }
+            mapString.add(r.toString());
+        }
+        return mapString.toString();
+    }
+
 }

@@ -33,7 +33,6 @@ public class DisplayInventory extends Display {
             }
             context.strokeText(stringBuilder.toString(), 410, y);
         }
-
     }
 
     private void writeText(String inv, int x, int y) {

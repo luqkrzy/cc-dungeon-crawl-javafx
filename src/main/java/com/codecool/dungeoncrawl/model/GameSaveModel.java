@@ -1,18 +1,17 @@
 package com.codecool.dungeoncrawl.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class GameSaveModel {
     private final GameStateModel gameStateModel;
-    private final ActorModel player;
+    private final ActorModel playerModel;
     private final List<ActorModel> monsters;
     private final InventoryModel inventoryModel;
 
 
-    public GameSaveModel(GameStateModel gameStateModel, ActorModel player, List<ActorModel> monsters, InventoryModel inventoryModel) {
+    public GameSaveModel(GameStateModel gameStateModel, ActorModel playerModel, List<ActorModel> monsters, InventoryModel inventoryModel) {
         this.gameStateModel = gameStateModel;
-        this.player = player;
+        this.playerModel = playerModel;
         this.monsters = monsters;
         this.inventoryModel = inventoryModel;
     }
@@ -22,12 +21,16 @@ public class GameSaveModel {
     }
 
 
-    public ActorModel getPlayer() {
-        return player;
+    public ActorModel getPlayerModel() {
+        return playerModel;
+    }
+
+    public int getGameId() {
+        return gameStateModel.getId();
     }
 
     public String getPlayerName() {
-        return player.getActorName();
+        return playerModel.getActorName();
     }
 
     public String getSaveName() {

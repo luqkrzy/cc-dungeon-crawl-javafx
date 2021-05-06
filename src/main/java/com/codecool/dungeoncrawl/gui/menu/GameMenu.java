@@ -117,20 +117,22 @@ public class GameMenu {
         TableColumn<GameSaveModel, Date> time = new TableColumn<>("Date");
         time.setCellValueFactory(new PropertyValueFactory<>("savedAt"));
 
-
         Button loadButton = new Button(MenuItemTitle.LOAD_GAME.getTitle());
         Button cancelButton = new Button(MenuItemTitle.CANCEL.getTitle());
         HBox cnfBtns = new HBox(10);
-        cancelButton.setOnMouseClicked(mouseEvent -> gameController.getPrimaryStage().setScene(gameMenu));
+        cancelButton.setOnMouseClicked(event -> gameController.getPrimaryStage().setScene(gameMenu));
+        loadButton.setOnMouseClicked(event -> {
+            GameSaveModel selectedItem = table.getSelectionModel().getSelectedItem();
+            gameController.loadGame(selectedItem);
+
+        });
 
         cnfBtns.setAlignment(Pos.CENTER);
         cnfBtns.getChildren().addAll(loadButton, cancelButton);
 
-
         table.getColumns().addAll(playerNameCol, saveNameCol, mapNameCol, time);
 
         vBox.getChildren().addAll(label, table, cnfBtns);
-
 
         Scene scene = new Scene(vBox, gameController.getCanvas().getWidth(), gameController.getCanvas().getHeight());
         gameController.getPrimaryStage().setScene(scene);

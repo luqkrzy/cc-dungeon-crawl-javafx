@@ -16,15 +16,15 @@ public class GameStateDaoJdbc implements GameStateDao {
         this.dataSource = dataSource;
     }
 
-
     @Override
     public void add(GameStateModel state) {
         try (Connection conn = dataSource.getConnection()) {
-            final String sql = "INSERT INTO game_state (current_map, player_id, save_name) VALUES (?, ?, ?)";
+            final String sql = "INSERT INTO game_state (current_map, player_id, save_name, map_string) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, state.getCurrentMap());
             statement.setInt(2, state.getPlayerId());
             statement.setString(3, state.getSaveName());
+            statement.setString(4, state.getMapString());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -38,10 +38,11 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void update(GameStateModel state) {
         try (Connection conn = dataSource.getConnection()) {
-            final String sql = "UPDATE game_state SET current_map=? WHERE player_id=?";
+            final String sql = "UPDATE game_state SET current_map=?, map_string=? WHERE player_id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, state.getCurrentMap());
-            statement.setInt(2, state.getPlayerId());
+            statement.setString(2, state.getMapString());
+            statement.setInt(3, state.getPlayerId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -85,7 +86,8 @@ public class GameStateDaoJdbc implements GameStateDao {
                 rs.getTimestamp("saved_at"),
                 rs.getString("current_map"),
                 rs.getString("save_name"),
-                rs.getString("player_name"));
+                rs.getString("player_name"),
+                rs.getString("map_string"));
         gameStateModel.setId(rs.getInt(1));
         return gameStateModel;
     }

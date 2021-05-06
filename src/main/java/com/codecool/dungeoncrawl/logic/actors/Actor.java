@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.Drawable;
+import com.codecool.dungeoncrawl.map.GameMap;
+import com.codecool.dungeoncrawl.model.ActorModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,28 @@ public abstract class Actor implements Drawable {
     protected int health = 10;
     protected int defense;
     protected int attack;
-    private final List<Item> inventory;
-    protected final FightEngine fightEngine;
+    protected List<Item> inventory;
+    protected FightEngine fightEngine = new FightEngine();
 
     public Actor(Cell cell) {
         this.cell = cell;
         this.inventory = new ArrayList<>();
         this.cell.setActor(this);
-        this.fightEngine = new FightEngine();
+    }
+
+    protected Actor() {
+    }
+
+
+    public Actor(ActorModel actorModel, GameMap gameMap) {
+        this.name = actorModel.getActorName();
+        this.cell = new Cell(gameMap, actorModel.getX(), actorModel.getY(), CellType.FLOOR);
+        this.health = actorModel.getX();
+        this.defense = actorModel.getDefense();
+        this.attack = actorModel.getAttack();
+        this.inventory = actorModel.getInventory();
+        this.cell.setActor(this);
+
     }
 
     public void move(int dx, int dy) {

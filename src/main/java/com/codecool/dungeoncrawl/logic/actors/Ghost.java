@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.GameMap;
+import com.codecool.dungeoncrawl.model.ActorModel;
 
 public class Ghost extends Monster {
     public Ghost(Cell cell) {
@@ -8,6 +10,10 @@ public class Ghost extends Monster {
         setHealth(40);
         setAttack(10);
         setDefense(2);
+    }
+
+    public Ghost(ActorModel monster, GameMap gameMap) {
+        super(monster, gameMap);
     }
 
     @Override

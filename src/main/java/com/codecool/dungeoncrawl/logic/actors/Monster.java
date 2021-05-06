@@ -3,6 +3,9 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.CellType;
+import com.codecool.dungeoncrawl.map.GameMap;
+import com.codecool.dungeoncrawl.model.ActorModel;
 
 import java.util.List;
 import java.util.Random;
@@ -20,6 +23,11 @@ public abstract class Monster extends Actor {
         super(cell);
         addItem(item);
     }
+
+    public Monster(ActorModel monsterModel, GameMap gameMap) {
+        super(monsterModel, gameMap);
+    }
+
 
     public void initMove() {
         if (health <= 0) {

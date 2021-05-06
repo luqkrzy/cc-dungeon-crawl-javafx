@@ -1,15 +1,17 @@
 package com.codecool.dungeoncrawl.gui;
+
 import com.codecool.dungeoncrawl.db.GameDatabaseManager;
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.menu.MenuItemTitle;
 import com.codecool.dungeoncrawl.gui.window.*;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
 import com.codecool.dungeoncrawl.map.Tiles;
+import com.codecool.dungeoncrawl.model.ActorModel;
 import com.codecool.dungeoncrawl.model.GameSaveModel;
-import com.codecool.dungeoncrawl.model.GameStateModel;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -90,6 +93,36 @@ public class GameController {
         }
     }
 
+    public void loadGame(GameSaveModel gameSave) {
+        map = MapLoader.loadMap(gameSave.getCurrentMap(), gameSave.getPlayerName());
+        Player player = new Player(gameSave.getPlayerModel(), map);
+        map.setPlayer(player);
+        map.getCell(player.getX(), player.getY()).setActor(player);
+        List<ActorModel> monstersModel = gameSave.getMonsters();
+        List<Monster> monsters = new ArrayList<>();
+        monstersModel.forEach(monster -> monsters.add(loadMonsters(monster, map)));
+        map.setMonsters(monsters);
+
+        BorderPane borderPane = setUpBorderPane();
+        Scene scene = new Scene(borderPane);
+        primaryStage.setScene(scene);
+        setUpGameOverMenu();
+        scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
+        refresh();
+        primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
+        primaryStage.show();
+    }
+
+    private Monster loadMonsters(ActorModel monster, GameMap gameMap) {
+        Monster mon = null;
+        switch (monster.getType()) {
+            case "Skeleton" -> mon = new Skeleton(monster, gameMap);
+            case "Ghost" -> mon = new Ghost(monster, gameMap);
+            case "Mage" -> mon = new Mage(monster, gameMap);
+        }
+        return mon;
+    }
+
     private BorderPane setUpBorderPane() {
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
@@ -124,6 +157,7 @@ public class GameController {
         return dbm.getAllGameSaves();
 
     }
+
 
     // public void cycleRefresh() {
     //     timeline.setCycleCount(Animation.INDEFINITE);
