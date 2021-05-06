@@ -5,9 +5,9 @@ import com.codecool.dungeoncrawl.map.Cell;
 public class Armor extends Item {
     private int defense;
 
-    public Armor(Cell cell, String name, int defense) {
+    public Armor(Cell cell, String name) {
         super(cell, name);
-        this.defense = defense;
+        this.defense = randomNumberInRange(2, 5);
         this.itemType = ItemType.ARMOR;
     }
 

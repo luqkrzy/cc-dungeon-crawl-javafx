@@ -34,7 +34,7 @@ public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType 
         }
     }
 
-    public void delete(int playerId) {
+    private void delete(int playerId) {
         try (Connection conn = dataSource.getConnection()) {
             final String sql = "DELETE FROM inventory WHERE player_id=?";
             PreparedStatement statement = conn.prepareStatement(sql);

@@ -21,6 +21,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.monsters = new ArrayList<>();
+        this.items = new ArrayList<>();
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -75,17 +76,17 @@ public class GameMap {
     public void initItems() {
         int monstersNo = monsters.size();
         int hpNo = monstersNo - 4;
-        items = new ArrayList<>();
+        List<Item> monsterItems = new ArrayList<>();
         for (int i = 0; i < hpNo; i++) {
-            items.add(new HP("Potion"));
+            monsterItems.add(new HP("Potion"));
         }
-        items.add(new Sword("Saber"));
-        items.add(new Armor("Metal Armor"));
-        items.add(new Key("Door key", 17, 3));
-        items.add(new Key("Door Key", 22, 18));
+        monsterItems.add(new Sword("Saber"));
+        monsterItems.add(new Armor("Metal Armor"));
+        monsterItems.add(new Key("Door key", 17, 3));
+        monsterItems.add(new Key("Door Key", 22, 18));
 
-        for (int i = 0; i < items.size(); i++) {
-            monsters.get(i).addItem(items.get(i));
+        for (int i = 0; i < monsterItems.size(); i++) {
+            monsters.get(i).addItem(monsterItems.get(i));
         }
     }
 

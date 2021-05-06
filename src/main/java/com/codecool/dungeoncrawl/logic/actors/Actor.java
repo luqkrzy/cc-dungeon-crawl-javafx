@@ -120,6 +120,7 @@ public abstract class Actor implements Drawable {
             Item item = inventory.get(0);
             item.setCell(cell);
             cell.setItem(item);
+            getMap().addItem(item);
         }
     }
 

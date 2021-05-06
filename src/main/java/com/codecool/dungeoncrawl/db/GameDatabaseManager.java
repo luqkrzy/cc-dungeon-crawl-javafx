@@ -1,20 +1,16 @@
 package com.codecool.dungeoncrawl.db;
 
-import com.codecool.dungeoncrawl.db.dao.GameStateDao;
-import com.codecool.dungeoncrawl.db.dao.InventoryDao;
-import com.codecool.dungeoncrawl.db.dao.MonsterDao;
-import com.codecool.dungeoncrawl.db.dao.PlayerDao;
-import com.codecool.dungeoncrawl.db.jdbc.GameStateDaoJdbc;
-import com.codecool.dungeoncrawl.db.jdbc.InventoryDaoJdbc;
-import com.codecool.dungeoncrawl.db.jdbc.MonsterDaoJdbc;
-import com.codecool.dungeoncrawl.db.jdbc.PlayerDaoJdbc;
+import com.codecool.dungeoncrawl.db.dao.*;
+import com.codecool.dungeoncrawl.db.jdbc.*;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.model.GameSaveModel;
 import com.codecool.dungeoncrawl.model.GameStateModel;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.ActorModel;
 import org.postgresql.ds.PGSimpleDataSource;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +21,7 @@ public class GameDatabaseManager {
     private GameStateDao gameStateDao;
     private InventoryDao inventoryDao;
     private MonsterDao monsterDao;
+    private ItemDao itemDao;
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
@@ -32,6 +29,7 @@ public class GameDatabaseManager {
         gameStateDao = new GameStateDaoJdbc(dataSource);
         inventoryDao = new InventoryDaoJdbc(dataSource);
         monsterDao = new MonsterDaoJdbc(dataSource);
+        itemDao = new ItemDaoJdbc(dataSource);
     }
 
     public void save(Player player, String saveName) {
@@ -57,7 +55,11 @@ public class GameDatabaseManager {
         saveGameState(playerModel.getId(), saveName, player);
         savePlayerInventory(playerModel);
         saveMonsters(playerModel.getId(), player.getMap().getMonsters());
+        saveMapItems(playerModel.getId(), player.getMap().getItems());
+    }
 
+    private void saveMapItems(int playerId, List<Item> items) {
+        itemDao.addAll(playerId, items);
     }
 
     private void saveMonsters(int playerId, List<Monster> monsters) {

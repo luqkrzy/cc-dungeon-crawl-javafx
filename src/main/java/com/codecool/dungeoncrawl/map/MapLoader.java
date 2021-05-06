@@ -45,7 +45,7 @@ public class MapLoader {
                         }
                         case 'k' -> {
                             cell.setType(CellType.FLOOR);
-                            new Key(cell, "key", 17, 3);
+                            map.addItem(new Key(cell, "key", 17, 3));
                         }
                         case 'g' -> {
                             cell.setType(CellType.FLOOR);
@@ -57,15 +57,15 @@ public class MapLoader {
                         }
                         case '>' -> {
                             cell.setType(CellType.FLOOR);
-                            new Sword(cell, "sword", 3);
+                            map.addItem(new Sword(cell, "sword"));
                         }
                         case '[' -> {
                             cell.setType(CellType.FLOOR);
-                            new Armor(cell, "armor", 3);
+                            map.addItem(new Armor(cell, "armor"));
                         }
                         case 'h' -> {
                             cell.setType(CellType.FLOOR);
-                            new HP(cell, "hp");
+                            map.addItem(new HP(cell, "hp"));
                         }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

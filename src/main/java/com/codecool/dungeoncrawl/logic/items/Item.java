@@ -66,7 +66,7 @@ public abstract class Item implements Drawable {
                 if (value != null) {
                     sb.append(field.getName() + ":" + value + ",");
                 }
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException ignored) {
 
             }
         }
