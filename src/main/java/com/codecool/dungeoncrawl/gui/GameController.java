@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.map.MapLoader;
 import com.codecool.dungeoncrawl.map.Tiles;
+import com.codecool.dungeoncrawl.model.GameSaveModel;
 import com.codecool.dungeoncrawl.model.GameStateModel;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -119,8 +120,8 @@ public class GameController {
         return displayInventory;
     }
 
-    public List<GameStateModel> getAllSaves() {
-        return dbm.getAllSaves();
+    public List<GameSaveModel> getAllSaves() {
+        return dbm.getAllGameSaves();
 
     }
 

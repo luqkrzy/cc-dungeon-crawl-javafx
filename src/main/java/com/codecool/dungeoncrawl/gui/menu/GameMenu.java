@@ -1,9 +1,7 @@
 package com.codecool.dungeoncrawl.gui.menu;
 
 import com.codecool.dungeoncrawl.gui.GameController;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.GameSaveModel;
-import com.codecool.dungeoncrawl.model.GameStateModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -18,18 +16,18 @@ import java.util.Date;
 import java.util.List;
 
 public class GameMenu {
-    private final MenuItemTitle menuItemTitle;
-    private final GameController gameController;
-    private Scene mainMenu;
+    protected final MenuItemTitle menuItemTitle;
+    protected final GameController gameController;
+    protected Scene gameMenu;
 
     public GameMenu(GameController gameController, MenuItemTitle menuItemTitle) {
         this.menuItemTitle = menuItemTitle;
         this.gameController = gameController;
-        this.mainMenu = setupSceneMenu();
+        this.gameMenu = setupSceneMenu();
     }
 
     public void initMainMenu() {
-        gameController.getPrimaryStage().setScene(mainMenu);
+        gameController.getPrimaryStage().setScene(gameMenu);
         gameController.getPrimaryStage().show();
     }
 
@@ -80,6 +78,8 @@ public class GameMenu {
             vbox.getChildren().removeAll(hBox, playerLabel, playerName);
             vbox.getChildren().addAll(label, newGameBtn, loadGameBtn, quitGameBtn);
         });
+
+        // cancelBtn.setOnMouseClicked(mouseEvent -> gameController.getPrimaryStage().setScene(mainMenu));
         quitGameBtn.setOnMouseClicked(mouseEvent -> gameController.getPrimaryStage().close());
 
         loadGameBtn.setOnMouseClicked(mouseEvent -> displayLoadGamesMenu());
@@ -96,32 +96,32 @@ public class GameMenu {
         label.setScaleX(4);
         label.setScaleY(4);
 
-        TableView<GameStateModel> table = new TableView<>();
+        TableView<GameSaveModel> table = new TableView<>();
         table.setPlaceholder(new Label("You do not have any saves yet!"));
         table.setEditable(false);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        List<GameStateModel> savedGames = gameController.getAllSaves();
-        ObservableList<GameStateModel> saves = FXCollections.observableArrayList(savedGames);
+        List<GameSaveModel> savedGames = gameController.getAllSaves();
+        ObservableList<GameSaveModel> saves = FXCollections.observableArrayList(savedGames);
         table.setItems(saves);
 
-        TableColumn<GameStateModel, String> playerNameCol = new TableColumn<>("Player");
+        TableColumn<GameSaveModel, String> playerNameCol = new TableColumn<>("Player");
         playerNameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
 
-        TableColumn<GameStateModel, GameStateModel> saveNameCol = new TableColumn<>("Save");
+        TableColumn<GameSaveModel, GameSaveModel> saveNameCol = new TableColumn<>("Save");
         saveNameCol.setCellValueFactory(new PropertyValueFactory<>("saveName"));
 
-        TableColumn<GameStateModel, GameStateModel> mapNameCol = new TableColumn<>("Map");
+        TableColumn<GameSaveModel, GameSaveModel> mapNameCol = new TableColumn<>("Map");
         mapNameCol.setCellValueFactory(new PropertyValueFactory<>("currentMap"));
 
-        TableColumn<GameStateModel, Date> time = new TableColumn<>("Date");
+        TableColumn<GameSaveModel, Date> time = new TableColumn<>("Date");
         time.setCellValueFactory(new PropertyValueFactory<>("savedAt"));
 
 
         Button loadButton = new Button(MenuItemTitle.LOAD_GAME.getTitle());
         Button cancelButton = new Button(MenuItemTitle.CANCEL.getTitle());
         HBox cnfBtns = new HBox(10);
-        cancelButton.setOnMouseClicked(mouseEvent -> gameController.getPrimaryStage().setScene(mainMenu));
+        cancelButton.setOnMouseClicked(mouseEvent -> gameController.getPrimaryStage().setScene(gameMenu));
 
         cnfBtns.setAlignment(Pos.CENTER);
         cnfBtns.getChildren().addAll(loadButton, cancelButton);
@@ -135,8 +135,6 @@ public class GameMenu {
         Scene scene = new Scene(vBox, gameController.getCanvas().getWidth(), gameController.getCanvas().getHeight());
         gameController.getPrimaryStage().setScene(scene);
         // gameController.getPrimaryStage().show();
-
-
     }
 
     private TextField createNewUserName() {

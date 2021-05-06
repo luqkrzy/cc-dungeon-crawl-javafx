@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class GameSaveModel {
@@ -21,23 +21,24 @@ public class GameSaveModel {
         return gameStateModel;
     }
 
-    public String getPlayerName() {
-        return player.getActorName();
-    }
 
     public ActorModel getPlayer() {
         return player;
+    }
+
+    public String getPlayerName() {
+        return player.getActorName();
     }
 
     public String getSaveName() {
         return gameStateModel.getSaveName();
     }
 
-    public String getMapName() {
+    public String getCurrentMap() {
         return gameStateModel.getCurrentMap();
     }
 
-    public Date getTime() {
+    public String getSavedAt() {
         return gameStateModel.getSavedAt();
     }
 

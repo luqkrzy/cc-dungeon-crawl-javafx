@@ -102,7 +102,6 @@ public class MonsterDaoJdbc implements MonsterDao, ItemType {
             Item item = getItem(itemType, itemValue);
             monsterModel.addToInventory(item);
             monsterModel.setId(rs.getInt(1));
-            System.out.println(monsterModel);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -17,6 +17,7 @@ import com.codecool.dungeoncrawl.model.ActorModel;
 import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameDatabaseManager {
@@ -88,8 +89,7 @@ public class GameDatabaseManager {
     }
 
 
-    public GameSaveModel loadGame(String saveName) {
-        GameStateModel gameStateModel = gameStateDao.get(saveName);
+    public GameSaveModel loadGameSaveModel(GameStateModel gameStateModel) {
         ActorModel playerModel = playerDao.get(gameStateModel.getPlayerId());
         InventoryModel inventoryModel = inventoryDao.get(gameStateModel.getPlayerId());
         playerModel.setInventory(inventoryModel.getInventory());
@@ -97,7 +97,15 @@ public class GameDatabaseManager {
         return new GameSaveModel(gameStateModel, playerModel, monsters, inventoryModel);
     }
 
-    public List<GameStateModel> getAllSaves() {
+    public List<GameSaveModel> getAllGameSaves() {
+        List<GameStateModel> allStates = getAllGameStates();
+        List<GameSaveModel> gameSaves = new ArrayList<>();
+        allStates.forEach(state -> gameSaves.add(loadGameSaveModel(state)));
+        return gameSaves;
+    }
+
+
+    public List<GameStateModel> getAllGameStates() {
         return gameStateDao.getAll();
     }
 

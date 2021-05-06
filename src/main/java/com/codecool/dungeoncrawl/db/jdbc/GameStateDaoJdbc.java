@@ -82,7 +82,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     private GameStateModel getGameStateModel(ResultSet rs) throws SQLException {
         GameStateModel gameStateModel = new GameStateModel(
                 rs.getInt("player_id"),
-                rs.getDate("saved_at"),
+                rs.getTimestamp("saved_at"),
                 rs.getString("current_map"),
                 rs.getString("save_name"),
                 rs.getString("player_name"));

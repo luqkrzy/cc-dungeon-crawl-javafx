@@ -71,7 +71,6 @@ public class PlayerDaoJdbc implements PlayerDao {
                     rs.getInt("attack"),
                     rs.getInt("hp"));
             playerModel.setId(rs.getInt(1));
-            System.out.println(playerModel);
             return playerModel;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
