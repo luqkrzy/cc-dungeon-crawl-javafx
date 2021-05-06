@@ -1,8 +1,9 @@
 package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.model.ItemModel;
 
-public interface ItemType {
+interface ItemType {
 
     default double getItemValue(Item item) {
         if (item instanceof Armor) {
@@ -25,16 +26,11 @@ public interface ItemType {
         return 0;
     }
 
-
     default Item getItem(int type, double value) {
         Item item;
         switch (type) {
             case 1 -> {
-                String doubleAsString = String.valueOf(value);
-                String[] split = doubleAsString.split("\\.");
-                int x = Integer.parseInt(split[0]);
-                int y = Integer.parseInt(split[1]);
-                item = new Key(x, y);
+                item = new Key(value);
             }
             case 2 -> item = new Sword((int) value);
             case 3 -> item = new HP((int) value);
@@ -42,5 +38,10 @@ public interface ItemType {
             default -> throw new IllegalStateException("Unexpected value: " + type);
         }
         return item;
+    }
+
+    default ItemModel getItemModel(int x, int y, int type, double value) {
+        return new ItemModel(x, y, type, value);
+
     }
 }

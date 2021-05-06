@@ -10,10 +10,9 @@ public abstract class Item implements Drawable {
     private Cell cell;
     private String name;
     protected ItemType itemType;
-    private Random random;
+    private Random random = new Random();
 
     public Item(String name) {
-        this.random = new Random();
         this.name = name;
     }
 
@@ -25,6 +24,10 @@ public abstract class Item implements Drawable {
     }
 
     public Item() {
+    }
+
+    public Item(Cell cell) {
+        this.cell = cell;
     }
 
     public int randomNumberInRange(int min, int max) {
@@ -48,7 +51,7 @@ public abstract class Item implements Drawable {
     }
 
     public String getName() {
-        return name;
+        return this.getClass().getSimpleName();
     }
 
     public int getItemType() {

@@ -7,13 +7,15 @@ public class GameSaveModel {
     private final ActorModel playerModel;
     private final List<ActorModel> monsters;
     private final InventoryModel inventoryModel;
+    private final List<ItemModel> mapItems;
 
 
-    public GameSaveModel(GameStateModel gameStateModel, ActorModel playerModel, List<ActorModel> monsters, InventoryModel inventoryModel) {
+    public GameSaveModel(GameStateModel gameStateModel, ActorModel playerModel, List<ActorModel> monsters, InventoryModel inventoryModel, List<ItemModel> mapItems) {
         this.gameStateModel = gameStateModel;
         this.playerModel = playerModel;
         this.monsters = monsters;
         this.inventoryModel = inventoryModel;
+        this.mapItems = mapItems;
     }
 
     public GameStateModel getGameStateModel() {
@@ -56,6 +58,10 @@ public class GameSaveModel {
 
     public InventoryModel getInventoryModel() {
         return inventoryModel;
+    }
+
+    public List<ItemModel> getMapItems() {
+        return mapItems;
     }
 
     @Override

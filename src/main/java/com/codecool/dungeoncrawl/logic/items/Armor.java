@@ -23,6 +23,10 @@ public class Armor extends Item {
         this.itemType = ItemType.ARMOR;
     }
 
+    public Armor(Cell cell, int defense) {
+        super(cell);
+        this.defense = defense;
+    }
 
     public int getDefense() {
         return defense;

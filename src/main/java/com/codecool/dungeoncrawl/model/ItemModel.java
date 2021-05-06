@@ -5,10 +5,9 @@ public class ItemModel extends BaseModel {
     private int itemType;
     private int x;
     private int y;
-    private int value;
+    private double value;
 
-    public ItemModel(int playerId, int itemType, int x, int y, int value) {
-        this.playerId = playerId;
+    public ItemModel(int x, int y, int itemType, double value) {
         this.itemType = itemType;
         this.x = x;
         this.y = y;
@@ -31,7 +30,7 @@ public class ItemModel extends BaseModel {
         return y;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 }

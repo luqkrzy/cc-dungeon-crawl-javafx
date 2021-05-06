@@ -15,6 +15,13 @@ public class Key extends Item {
 
     }
 
+    public Key(Cell cell, double doorXY) {
+        super(cell);
+        setDoorXY(doorXY);
+        this.itemType = ItemType.KEY;
+
+    }
+
     public Key(String name, int x, int y) {
         super(name);
         this.doorX = x;
@@ -23,10 +30,17 @@ public class Key extends Item {
 
     }
 
-    public Key(int x, int y) {
-        this.doorX = x;
-        this.doorY = y;
+    public Key(double doorXY) {
+        setDoorXY(doorXY);
         this.itemType = ItemType.KEY;
+    }
+
+
+    private void setDoorXY(double doorXY) {
+        String doubleAsString = String.valueOf(doorXY);
+        String[] split = doubleAsString.split("\\.");
+        doorX = Integer.parseInt(split[0]);
+        doorY = Integer.parseInt(split[1]);
     }
 
 

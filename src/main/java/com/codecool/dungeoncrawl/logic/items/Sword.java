@@ -11,6 +11,12 @@ public class Sword extends Item {
         this.itemType = ItemType.SWORD;
     }
 
+    public Sword(Cell cell, int damage) {
+        super(cell);
+        this.damage = randomNumberInRange(3, 5);
+        this.itemType = ItemType.SWORD;
+    }
+
     public Sword(String name) {
         super(name);
         this.damage = randomNumberInRange(3, 5);
@@ -21,6 +27,7 @@ public class Sword extends Item {
         this.damage = damage;
         this.itemType = ItemType.SWORD;
     }
+
 
     public int getDamage() {
         return damage;

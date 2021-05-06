@@ -7,11 +7,11 @@ import com.codecool.dungeoncrawl.gui.window.*;
 import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
-import com.codecool.dungeoncrawl.map.GameMap;
-import com.codecool.dungeoncrawl.map.MapLoader;
-import com.codecool.dungeoncrawl.map.Tiles;
+import com.codecool.dungeoncrawl.logic.items.*;
+import com.codecool.dungeoncrawl.map.*;
 import com.codecool.dungeoncrawl.model.ActorModel;
 import com.codecool.dungeoncrawl.model.GameSaveModel;
+import com.codecool.dungeoncrawl.model.ItemModel;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -111,8 +111,27 @@ public class GameController {
         List<ActorModel> monstersModel = gameSave.getMonsters();
         List<Monster> monsters = new ArrayList<>();
         monstersModel.forEach(monster -> monsters.add(loadMonsters(monster, map)));
+        List<ItemModel> mapItemsModel = gameSave.getMapItems();
+        List<Item> mapItems = new ArrayList<>();
+        mapItemsModel.forEach(itemModel -> mapItems.add(loadItems(itemModel)));
+        mapItems.forEach(item -> map.getCell(item.getX(), item.getY()).setItem(item));
         map.setMonsters(monsters);
         run();
+    }
+
+    private Item loadItems(ItemModel itemModel) {
+        return getItem(map, itemModel.getX(), itemModel.getY(), itemModel.getItemType(), itemModel.getValue());
+    }
+
+    private Item getItem(GameMap gameMap, int x, int y, int type, double value) {
+        Item item = null;
+        switch (type) {
+            case 1 -> item = new Key(new Cell(gameMap, x, y, CellType.FLOOR), value);
+            case 2 -> item = new Sword(new Cell(gameMap, x, y, CellType.FLOOR), (int) value);
+            case 3 -> item = new HP(new Cell(gameMap, x, y, CellType.FLOOR), (int) value);
+            case 4 -> item = new Armor(new Cell(gameMap, x, y, CellType.FLOOR), (int) value);
+        }
+        return item;
     }
 
     private void run() {

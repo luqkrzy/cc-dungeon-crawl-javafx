@@ -5,10 +5,7 @@ import com.codecool.dungeoncrawl.db.jdbc.*;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.model.GameSaveModel;
-import com.codecool.dungeoncrawl.model.GameStateModel;
-import com.codecool.dungeoncrawl.model.InventoryModel;
-import com.codecool.dungeoncrawl.model.ActorModel;
+import com.codecool.dungeoncrawl.model.*;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -33,7 +30,7 @@ public class GameDatabaseManager {
     }
 
     public void save(Player player, String saveName) {
-        boolean ifSaveExist = isSaveExist(saveName);
+        boolean ifSaveExist = doesSaveExist(saveName);
         if (ifSaveExist) {
             update(player, saveName);
         } else {
@@ -48,6 +45,7 @@ public class GameDatabaseManager {
         GameStateModel gameStateModel = new GameStateModel(actorModel.getId(), player.getMap().getMapName(), saveName, player.getMap().layoutToString());
         gameStateDao.update(gameStateModel);
         inventoryDao.update(new InventoryModel(actorModel.getId(), actorModel.getInventory()));
+        itemDao.update(actorModel.getId(), player.getMap().getItems());
     }
 
     private void saveGame(Player player, String saveName) {
@@ -85,8 +83,8 @@ public class GameDatabaseManager {
         return actorModel;
     }
 
-    private boolean isSaveExist(String saveName) {
-        final boolean saveNameExist = gameStateDao.isSaveNameExist(saveName);
+    private boolean doesSaveExist(String saveName) {
+        boolean saveNameExist = gameStateDao.isSaveNameExist(saveName);
         System.out.println(saveNameExist ? "Save exist - overwriting" : "New Save");
         return saveNameExist;
     }
@@ -97,7 +95,8 @@ public class GameDatabaseManager {
         InventoryModel inventoryModel = inventoryDao.get(gameStateModel.getPlayerId());
         playerModel.setInventory(inventoryModel.getInventory());
         List<ActorModel> monsters = monsterDao.getAll(gameStateModel.getPlayerId());
-        return new GameSaveModel(gameStateModel, playerModel, monsters, inventoryModel);
+        List<ItemModel> mapItems = itemDao.getAll(playerModel.getId());
+        return new GameSaveModel(gameStateModel, playerModel, monsters, inventoryModel, mapItems);
     }
 
     public List<GameSaveModel> getAllGameSaves() {
@@ -107,11 +106,9 @@ public class GameDatabaseManager {
         return gameSaves;
     }
 
-
     public List<GameStateModel> getAllGameStates() {
         return gameStateDao.getAll();
     }
-
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
