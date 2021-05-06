@@ -13,11 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterDaoJdbc implements MonsterDao, ItemType {
-    private DataSource dataSource;
+public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
 
     public MonsterDaoJdbc(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     @Override

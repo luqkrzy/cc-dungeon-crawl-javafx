@@ -10,7 +10,7 @@ public class RightGridPane extends Pane {
     private final Label healthLabel = new Label();
     private final Label attackLabel = new Label();
     private final Label defenseLabel = new Label();
-    private final Button button = new Button("Pick Up!");
+    private final Button pickUpBtn = new Button("Pick Up!");
 
     public RightGridPane() {
         build();
@@ -30,18 +30,19 @@ public class RightGridPane extends Pane {
     }
 
     public void showPickUpButton(Cell cell) {
-        ui.getChildren().remove(button);
-        ui.add(button, 1, 20);
-        button.setOnAction(actionEvent -> {
-            ui.getChildren().remove(button);
+        ui.getChildren().remove(pickUpBtn);
+        ui.add(pickUpBtn, 1, 20);
+        pickUpBtn.setOnAction(actionEvent -> {
+            ui.getChildren().remove(pickUpBtn);
             Player player = (Player) cell.getActor();
-            player.addToInventory(cell);
+
+            player.addToInventory(cell.getItem());
         });
     }
 
 
     public void hidePickUpButton() {
-        ui.getChildren().remove(button);
+        ui.getChildren().remove(pickUpBtn);
     }
 
 

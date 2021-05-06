@@ -123,6 +123,7 @@ public class GameMenu {
         cancelButton.setOnMouseClicked(event -> gameController.getPrimaryStage().setScene(gameMenu));
         loadButton.setOnMouseClicked(event -> {
             GameSaveModel selectedItem = table.getSelectionModel().getSelectedItem();
+            System.out.println(selectedItem);
             gameController.loadGame(selectedItem);
 
         });

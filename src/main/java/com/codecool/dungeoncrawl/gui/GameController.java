@@ -24,20 +24,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
-    private final GameDatabaseManager dbm;
+    private GameDatabaseManager dbm;
     private GameMap map;
-    private final Canvas canvas;
-    private final GraphicsContext context;
-    private final RightGridPane rightGridPane;
-    private final BottomGridPane bottomGridPane;
-    private final DisplayInventory displayInventory;
-    private final DisplayGameOver displayGameOver;
-    private final KeyboardHandler keyboardHandler;
-    private final Engine engine;
+    private Canvas canvas;
+    private GraphicsContext context;
+    private RightGridPane rightGridPane;
+    private BottomGridPane bottomGridPane;
+    private DisplayInventory displayInventory;
+    private DisplayGameOver displayGameOver;
+    private KeyboardHandler keyboardHandler;
+    private Engine engine;
     private Stage primaryStage;
-    // private final Timeline timeline;
 
     public GameController() {
+        build();
+    }
+
+    private void build() {
         this.dbm = new GameDatabaseManager();
         this.map = MapLoader.loadMap("/map.txt", "anonymous");
         this.canvas = new Canvas(
@@ -50,7 +53,22 @@ public class GameController {
         this.displayGameOver = new DisplayGameOver(context, canvas.getWidth() / 2, canvas.getHeight() / 2);
         this.keyboardHandler = new KeyboardHandler(this);
         this.engine = new Engine(map, context, displayGameOver, rightGridPane, keyboardHandler);
-        // this.timeline = initTimeline();
+    }
+
+
+    private void build(GameSaveModel gameSaveModel) {
+        this.dbm = new GameDatabaseManager();
+        this.map = MapLoader.loadMap(gameSaveModel);
+        this.canvas = new Canvas(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH);
+        this.context = canvas.getGraphicsContext2D();
+        this.rightGridPane = new RightGridPane();
+        this.bottomGridPane = new BottomGridPane();
+        this.displayInventory = new DisplayInventory(context, canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
+        this.displayGameOver = new DisplayGameOver(context, canvas.getWidth() / 2, canvas.getHeight() / 2);
+        this.keyboardHandler = new KeyboardHandler(this);
+        this.engine = new Engine(map, context, displayGameOver, rightGridPane, keyboardHandler);
     }
 
     public void start(Stage primaryStage) throws Exception {
@@ -82,35 +100,30 @@ public class GameController {
     public void startNewGame(String playerName) {
         if (playerName.length() > 0) {
             map.getPlayer().setName(playerName);
-            BorderPane borderPane = setUpBorderPane();
-            Scene scene = new Scene(borderPane);
-            primaryStage.setScene(scene);
-            setUpGameOverMenu();
-            scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
-            refresh();
-            primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
-            primaryStage.show();
+            run();
         }
     }
 
     public void loadGame(GameSaveModel gameSave) {
-        map = MapLoader.loadMap(gameSave.getCurrentMap(), gameSave.getPlayerName());
+        build(gameSave);
+
         Player player = new Player(gameSave.getPlayerModel(), map);
-        map.setPlayer(player);
-        map.getCell(player.getX(), player.getY()).setActor(player);
         List<ActorModel> monstersModel = gameSave.getMonsters();
         List<Monster> monsters = new ArrayList<>();
         monstersModel.forEach(monster -> monsters.add(loadMonsters(monster, map)));
         map.setMonsters(monsters);
+        run();
+    }
 
+    private void run() {
         BorderPane borderPane = setUpBorderPane();
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         setUpGameOverMenu();
         scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
-        refresh();
         primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
         primaryStage.show();
+        refresh();
     }
 
     private Monster loadMonsters(ActorModel monster, GameMap gameMap) {

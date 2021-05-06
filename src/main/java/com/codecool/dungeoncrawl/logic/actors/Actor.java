@@ -26,10 +26,6 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    protected Actor() {
-    }
-
-
     public Actor(ActorModel actorModel, GameMap gameMap) {
         this.name = actorModel.getActorName();
         this.cell = new Cell(gameMap, actorModel.getX(), actorModel.getY(), CellType.FLOOR);
@@ -38,7 +34,6 @@ public abstract class Actor implements Drawable {
         this.attack = actorModel.getAttack();
         this.inventory = actorModel.getInventory();
         this.cell.setActor(this);
-
     }
 
     public void move(int dx, int dy) {
@@ -143,5 +138,9 @@ public abstract class Actor implements Drawable {
 
     public String getClassName() {
         return this.getInstanceName();
+    }
+
+    public GameMap getMap() {
+        return cell.getGameMap();
     }
 }

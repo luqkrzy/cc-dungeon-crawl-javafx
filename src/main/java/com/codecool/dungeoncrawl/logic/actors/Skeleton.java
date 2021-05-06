@@ -15,7 +15,6 @@ public class Skeleton extends Monster {
         super(monster, gameMap);
     }
 
-
     @Override
     public String getTileName() {
         return "skeleton";

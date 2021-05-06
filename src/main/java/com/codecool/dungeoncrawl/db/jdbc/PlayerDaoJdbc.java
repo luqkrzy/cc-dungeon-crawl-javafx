@@ -7,11 +7,10 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class PlayerDaoJdbc implements PlayerDao {
-    private DataSource dataSource;
+public class PlayerDaoJdbc extends DaoJdbc implements PlayerDao {
 
     public PlayerDaoJdbc(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     @Override

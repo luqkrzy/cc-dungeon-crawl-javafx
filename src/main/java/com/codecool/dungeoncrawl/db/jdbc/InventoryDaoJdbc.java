@@ -8,11 +8,10 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class InventoryDaoJdbc implements InventoryDao, ItemType {
-    private DataSource dataSource;
+public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType {
 
     public InventoryDaoJdbc(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     @Override

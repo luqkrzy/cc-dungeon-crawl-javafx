@@ -18,13 +18,8 @@ public class Player extends Actor {
     }
 
     public Player(ActorModel actorModel, GameMap gameMap) {
-        this.name = actorModel.getActorName();
-        this.cell = new Cell(gameMap, actorModel.getX(), actorModel.getY(), CellType.FLOOR);
-        this.health = actorModel.getX();
-        this.defense = actorModel.getDefense();
-        this.attack = actorModel.getAttack();
-        this.inventory = actorModel.getInventory();
-        this.cell.setActor(this);
+        super(actorModel, gameMap);
+        gameMap.setPlayer(this);
     }
 
     @Override
@@ -32,8 +27,8 @@ public class Player extends Actor {
         return "player";
     }
 
-    public void addToInventory(Cell cell) {
-        Item item = cell.getItem();
+    public void addToInventory(Item item) {
+        getMap().removeItem(item);
         BottomGridPane.log("picked up: " + item.getName());
         if (item instanceof Sword) {
             setAttack(getAttack() + ((Sword) item).getDamage());

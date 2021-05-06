@@ -8,12 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameStateDaoJdbc implements GameStateDao {
-
-    private DataSource dataSource;
+public class GameStateDaoJdbc extends DaoJdbc implements GameStateDao {
 
     public GameStateDaoJdbc(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     @Override
@@ -67,8 +65,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     public List<GameStateModel> getAll() {
         List<GameStateModel> gameStateList = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()) {
-            // final String sql = "SELECT * FROM game_state";
-            final String sql = "SELECT g.id, g.current_map, g.saved_at, g.player_id, g.save_name, p.player_name FROM game_state g JOIN player p on p.id = g.player_id;";
+            final String sql = "SELECT g.id, g.current_map, g.saved_at, g.player_id, g.save_name, g.map_string, p.player_name FROM game_state g JOIN player p on p.id = g.player_id;";
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {

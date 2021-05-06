@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.Drawable;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 
 public abstract class Item implements Drawable {
@@ -52,5 +53,23 @@ public abstract class Item implements Drawable {
 
     public int getItemType() {
         return itemType.getType();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        for (Field field : this.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            Object value = null;
+            try {
+                value = field.get(this);
+                if (value != null) {
+                    sb.append(field.getName() + ":" + value + ",");
+                }
+            } catch (IllegalAccessException e) {
+
+            }
+        }
+        return sb.toString();
     }
 }

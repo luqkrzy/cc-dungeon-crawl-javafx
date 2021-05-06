@@ -14,6 +14,7 @@ public class GameMap {
     private Cell[][] cells;
     private Player player;
     private List<Monster> monsters;
+    private List<Item> items;
 
     public GameMap(String mapName, int width, int height, CellType defaultCellType) {
         this.mapName = mapName;
@@ -74,7 +75,7 @@ public class GameMap {
     public void initItems() {
         int monstersNo = monsters.size();
         int hpNo = monstersNo - 4;
-        List<Item> items = new ArrayList<>();
+        items = new ArrayList<>();
         for (int i = 0; i < hpNo; i++) {
             items.add(new HP("Potion"));
         }
@@ -102,14 +103,14 @@ public class GameMap {
         for (int y = 0; y < height; y++) {
             StringBuilder r = new StringBuilder();
             for (int x = 0; x < width; x++) {
-                if (cells[x][y].getItem() instanceof Key) r.append("k");
-                else if (cells[x][y].getItem() instanceof Sword) r.append(">");
-                else if (cells[x][y].getItem() instanceof Armor) r.append("[");
-                else if (cells[x][y].getItem() instanceof HP) r.append("h");
-                else if (cells[x][y].getActor() instanceof Ghost) r.append("g");
-                else if (cells[x][y].getActor() instanceof Skeleton) r.append("s");
-                else if (cells[x][y].getActor() instanceof Player) r.append("@");
-                else if (cells[x][y].getActor() instanceof Mage) r.append("m");
+                if (cells[x][y].getItem() instanceof Key) r.append(".");
+                else if (cells[x][y].getItem() instanceof Sword) r.append(".");
+                else if (cells[x][y].getItem() instanceof Armor) r.append(".");
+                else if (cells[x][y].getItem() instanceof HP) r.append(".");
+                else if (cells[x][y].getActor() instanceof Ghost) r.append(".");
+                else if (cells[x][y].getActor() instanceof Skeleton) r.append(".");
+                else if (cells[x][y].getActor() instanceof Player) r.append(".");
+                else if (cells[x][y].getActor() instanceof Mage) r.append(".");
                 else if (cells[x][y].getTileName().equals("empty")) r.append(" ");
                 else if (cells[x][y].getTileName().equals("floor")) r.append(".");
                 else if (cells[x][y].getTileName().equals("wall")) r.append("#");
@@ -121,6 +122,22 @@ public class GameMap {
             mapString.add(r.toString());
         }
         return mapString.toString();
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 
 }

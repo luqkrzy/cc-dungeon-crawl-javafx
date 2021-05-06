@@ -25,6 +25,10 @@ public class GameSaveModel {
         return playerModel;
     }
 
+    public String getMapString() {
+        return gameStateModel.getMapString();
+    }
+
     public int getGameId() {
         return gameStateModel.getId();
     }
@@ -52,6 +56,16 @@ public class GameSaveModel {
 
     public InventoryModel getInventoryModel() {
         return inventoryModel;
+    }
+
+    @Override
+    public String toString() {
+        return "GameSaveModel{" +
+                "gameStateModel=" + gameStateModel.toString() +
+                ", playerModel=" + playerModel.toString() +
+                ", monsters=" + monsters.toString() +
+                ", inventoryModel=" + inventoryModel.toString() +
+                '}';
     }
 }
 
