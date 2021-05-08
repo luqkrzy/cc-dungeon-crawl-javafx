@@ -25,7 +25,6 @@ public class RightGridPane extends Pane {
         ui.add(attackLabel, 1, 1);
         ui.add(new Label("Defense: "), 0, 2);
         ui.add(defenseLabel, 1, 2);
-
         ui.add(new Label(" "), 0, 3);
     }
 

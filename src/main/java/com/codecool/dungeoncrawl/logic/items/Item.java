@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.map.Drawable;
 import java.lang.reflect.Field;
 import java.util.Random;
 
-public abstract class Item implements Drawable {
+public abstract class Item implements Drawable, ItemValue {
     private Cell cell;
     private String name;
     protected ItemType itemType;

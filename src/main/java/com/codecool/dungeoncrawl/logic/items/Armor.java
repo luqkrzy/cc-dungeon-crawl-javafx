@@ -41,4 +41,9 @@ public class Armor extends Item {
     public String getTileName() {
         return "armor";
     }
+
+    @Override
+    public double getValue() {
+        return defense;
+    }
 }

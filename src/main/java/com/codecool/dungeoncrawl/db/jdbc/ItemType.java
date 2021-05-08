@@ -5,28 +5,28 @@ import com.codecool.dungeoncrawl.model.ItemModel;
 
 interface ItemType {
 
-    default double getItemValue(Item item) {
-        if (item instanceof Armor) {
-            return ((Armor) item).getDefense();
-        }
-        if (item instanceof HP) {
-            return ((HP) item).getHealthPoints();
-        }
-        if (item instanceof Sword) {
-            return ((Sword) item).getDamage();
-        }
+    // default double getItemValue(Item item) {
+    //     if (item instanceof Armor) {
+    //         return ((Armor) item).getDefense();
+    //     }
+    //     if (item instanceof HP) {
+    //         return ((HP) item).getHealthPoints();
+    //     }
+    //     if (item instanceof Sword) {
+    //         return ((Sword) item).getDamage();
+    //     }
+    //
+    //     if (item instanceof Key) {
+    //         int doorX = ((Key) item).getDoorX();
+    //         int doorY = ((Key) item).getDoorY();
+    //         String keyCoord = doorX + "." + doorY;
+    //         return Double.parseDouble(keyCoord);
+    //     }
+    //
+    //     return 0;
+    // }
 
-        if (item instanceof Key) {
-            int doorX = ((Key) item).getDoorX();
-            int doorY = ((Key) item).getDoorY();
-            String keyCoord = doorX + "." + doorY;
-            return Double.parseDouble(keyCoord);
-        }
-
-        return 0;
-    }
-
-    default Item getItem(int type, double value) {
+    default Item initItem(int type, double value) {
         Item item;
         switch (type) {
             case 1 -> {
@@ -40,7 +40,7 @@ interface ItemType {
         return item;
     }
 
-    default ItemModel getItemModel(int x, int y, int type, double value) {
+    default ItemModel initItemModel(int x, int y, int type, double value) {
         return new ItemModel(x, y, type, value);
 
     }

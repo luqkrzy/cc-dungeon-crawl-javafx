@@ -32,7 +32,7 @@ public class ItemDaoJdbc extends DaoJdbc implements ItemDao, ItemType {
             statement.setInt(2, item.getItemType());
             statement.setInt(3, item.getX());
             statement.setInt(4, item.getY());
-            statement.setDouble(5, getItemValue(item));
+            statement.setDouble(5, item.getValue());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -69,7 +69,7 @@ public class ItemDaoJdbc extends DaoJdbc implements ItemDao, ItemType {
                 int y = rs.getInt("y");
                 int type = rs.getInt("item_type");
                 double value = rs.getDouble("value");
-                ItemModel itemModel = getItemModel(x, y, type, value);
+                ItemModel itemModel = initItemModel(x, y, type, value);
                 items.add(itemModel);
             }
             return items;

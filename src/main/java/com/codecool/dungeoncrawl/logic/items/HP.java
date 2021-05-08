@@ -41,4 +41,9 @@ public class HP extends Item {
     public String getTileName() {
         return "hp";
     }
+
+    @Override
+    public double getValue() {
+        return healthPoints;
+    }
 }

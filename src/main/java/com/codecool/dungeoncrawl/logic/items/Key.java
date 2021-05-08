@@ -61,4 +61,10 @@ public class Key extends Item {
     public String getTileName() {
         return "key";
     }
+
+    @Override
+    public double getValue() {
+        String keyCoord = doorX + "." + doorY;
+        return Double.parseDouble(keyCoord);
+    }
 }

@@ -26,7 +26,7 @@ public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, playerId);
             statement.setInt(2, item.getItemType());
-            statement.setDouble(3, getItemValue(item));
+            statement.setDouble(3, item.getValue());
             statement.executeUpdate();
             int a = 1;
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType 
             while (rs.next()) {
                 int type = rs.getInt("type");
                 double value = rs.getDouble("value");
-                Item item = getItem(type, value);
+                Item item = initItem(type, value);
                 inventoryModel.addToInventory(item);
             }
             return inventoryModel;

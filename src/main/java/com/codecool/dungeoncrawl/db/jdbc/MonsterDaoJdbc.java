@@ -32,7 +32,7 @@ public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
             statement.setInt(6, monster.getDefense());
             statement.setInt(7, monster.getAttack());
             statement.setInt(8, monster.getFirstItem().getItemType());
-            statement.setDouble(9, getItemValue(monster.getFirstItem()));
+            statement.setDouble(9, monster.getFirstItem().getValue());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,7 +98,7 @@ public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
                     rs.getInt("hp"));
             int itemType = rs.getInt("item_type");
             double itemValue = rs.getDouble("item_value");
-            Item item = getItem(itemType, itemValue);
+            Item item = initItem(itemType, itemValue);
             monsterModel.addToInventory(item);
             monsterModel.setId(rs.getInt(1));
         } catch (SQLException e) {
