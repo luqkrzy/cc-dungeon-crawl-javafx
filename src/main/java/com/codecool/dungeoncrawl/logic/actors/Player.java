@@ -17,6 +17,13 @@ public class Player extends Actor {
         setAttack(5);
     }
 
+    public Player(Cell cell) {
+        super(cell);
+        setHealth(100);
+        setDefense(5);
+        setAttack(5);
+    }
+
     public Player(ActorModel actorModel, GameMap gameMap) {
         super(actorModel, gameMap);
         gameMap.setPlayer(this);

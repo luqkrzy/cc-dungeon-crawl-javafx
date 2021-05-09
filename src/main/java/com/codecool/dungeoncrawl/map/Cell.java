@@ -106,7 +106,7 @@ public class Cell implements Drawable {
     }
 
     public boolean isOutOfBounds(int iX, int iY) {
-        return (iY < 0 || iY >= gameMap.getHeight() - 1) || (iX < 0 || iX >= gameMap.getWidth() - 1);
+        return (iY < 0 || iY > gameMap.getHeight() - 1) || (iX < 0 || iX > gameMap.getWidth() - 1);
     }
 
     @Override

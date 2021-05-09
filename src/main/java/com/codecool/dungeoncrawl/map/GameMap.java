@@ -10,7 +10,7 @@ import java.util.StringJoiner;
 public class GameMap {
     private final int width;
     private final int height;
-    private final String mapName;
+    private String mapName;
     private Cell[][] cells;
     private Player player;
     private List<Monster> monsters;
@@ -22,6 +22,18 @@ public class GameMap {
         this.height = height;
         this.monsters = new ArrayList<>();
         this.items = new ArrayList<>();
+        initCells(width, height, defaultCellType);
+    }
+
+    public GameMap(int width, int height, CellType defaultCellType) {
+        this.width = width;
+        this.height = height;
+        this.monsters = new ArrayList<>();
+        this.items = new ArrayList<>();
+        initCells(width, height, defaultCellType);
+    }
+
+    private void initCells(int width, int height, CellType defaultCellType) {
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
