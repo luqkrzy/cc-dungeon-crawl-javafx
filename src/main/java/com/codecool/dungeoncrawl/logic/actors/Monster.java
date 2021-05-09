@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.map.Cell;
-import com.codecool.dungeoncrawl.map.CellType;
 import com.codecool.dungeoncrawl.map.GameMap;
 import com.codecool.dungeoncrawl.model.ActorModel;
 
@@ -56,7 +55,7 @@ public abstract class Monster extends Actor {
 
     public void attack(Player player) {
         BottomGridPane.log("attack!");
-        fightEngine.fight2(player, this);
+        fightEngine.fight(player, this);
     }
 
     protected int random(int max, int min) {

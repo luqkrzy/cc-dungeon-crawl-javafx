@@ -61,6 +61,7 @@ public class Engine {
 
     private void lookForItem(Cell cell) {
         if (cell.isActorAndItemSamePosition()) {
+            BottomGridPane.log("You see the " + cell.getItem().getName());
             rightGridPane.showPickUpButton(cell);
         } else {
             rightGridPane.hidePickUpButton();

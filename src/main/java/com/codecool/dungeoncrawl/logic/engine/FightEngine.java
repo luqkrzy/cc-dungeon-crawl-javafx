@@ -41,7 +41,7 @@ public class FightEngine {
     // }
 
 
-    public void fight2(Player player, Monster monster) {
+    public void fight(Player player, Monster monster) {
         int attackerAtk = player.getAttack();
         int attackerDef = player.getDefense();
         int attackerHealth = player.getHealth();

@@ -90,11 +90,7 @@ public class Cell implements Drawable {
     }
 
     public boolean isActorAndItemSamePosition() {
-        boolean sameXY = isItem() && getActor().getX() == getItem().getX() && getActor().getY() == getItem().getY();
-        if (sameXY) {
-            BottomGridPane.log("You see the " + item.getName());
-        }
-        return sameXY;
+        return isItem() && getActor().getX() == getItem().getX() && getActor().getY() == getItem().getY();
     }
 
     public boolean isActor(int iX, int iY) {
