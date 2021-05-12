@@ -130,4 +130,6 @@ public class Cell implements Drawable, Passable {
     public GameMap getGameMap() {
         return gameMap;
     }
+
+
 }

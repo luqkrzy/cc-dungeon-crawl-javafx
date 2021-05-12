@@ -20,7 +20,7 @@ public class GameDatabaseManager {
     private MonsterDao monsterDao;
     private ItemDao itemDao;
 
-    public void setup() throws SQLException {
+    public void setup() {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
@@ -110,7 +110,7 @@ public class GameDatabaseManager {
         return gameStateDao.getAll();
     }
 
-    private DataSource connect() throws SQLException {
+    private DataSource connect() {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         String dbName = System.getenv("DB_NAME");
         String user = System.getenv("USER");
@@ -119,7 +119,11 @@ public class GameDatabaseManager {
         dataSource.setUser(user);
         dataSource.setPassword(password);
         System.out.println("Trying to connect");
-        dataSource.getConnection().close();
+        try {
+            dataSource.getConnection().close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         System.out.println("Connection ok.");
 
         return dataSource;

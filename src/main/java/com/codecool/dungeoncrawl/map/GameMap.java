@@ -124,13 +124,13 @@ public class GameMap {
                 else if (cells[x][y].getActor() instanceof Skeleton) r.append(".");
                 else if (cells[x][y].getActor() instanceof Player) r.append(".");
                 else if (cells[x][y].getActor() instanceof Mage) r.append(".");
-                else if (cells[x][y].getTileName().equals("empty")) r.append(" ");
-                else if (cells[x][y].getTileName().equals("floor")) r.append(".");
-                else if (cells[x][y].getTileName().equals("wall")) r.append("#");
-                else if (cells[x][y].getTileName().equals("doors")) r.append("d");
-                else if (cells[x][y].getTileName().equals("opendoors")) r.append("o");
-                else if (cells[x][y].getTileName().equals("stairs")) r.append("{");
-                else if (cells[x][y].getTileName().equals("spike")) r.append("<");
+                else if (cells[x][y].getType().equals(CellType.EMPTY)) r.append(" ");
+                else if (cells[x][y].getType().equals(CellType.FLOOR)) r.append(".");
+                else if (cells[x][y].getType().equals(CellType.WALL)) r.append("#");
+                else if (cells[x][y].getType().equals(CellType.DOORS)) r.append("d");
+                else if (cells[x][y].getType().equals(CellType.OPENDOORS)) r.append("o");
+                else if (cells[x][y].getType().equals(CellType.STAIRS)) r.append("{");
+                else if (cells[x][y].getType().equals(CellType.SPIKE)) r.append("<");
             }
             mapString.add(r.toString());
         }

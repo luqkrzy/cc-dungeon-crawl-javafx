@@ -52,6 +52,7 @@ public class GameController {
 
     void build(GameSaveModel gameSaveModel) {
         this.dbm = new GameDatabaseManager();
+        dbm.setup();
         this.map = MapLoader.loadMap(gameSaveModel);
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
@@ -72,11 +73,7 @@ public class GameController {
     }
 
     private void connectToDatabase() {
-        try {
-            dbm.setup();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        dbm.setup();
     }
 
     private void setUpGameOverMenu() {
