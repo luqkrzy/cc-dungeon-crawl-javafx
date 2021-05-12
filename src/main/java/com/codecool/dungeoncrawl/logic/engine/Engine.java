@@ -44,7 +44,7 @@ public class Engine {
 
     private void nextMap(Player player) {
         if (player.getCell().getType().equals(CellType.STAIRS)) {
-            GameMap map = MapLoader.loadMap("/map2.txt", player.getName());
+            GameMap map = MapLoader.loadMap("/map_02.txt", player.getName());
             this.map = map;
             keyboardHandler.setMap(map);
         }

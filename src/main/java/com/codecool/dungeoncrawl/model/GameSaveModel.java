@@ -22,13 +22,8 @@ public class GameSaveModel {
         return gameStateModel;
     }
 
-
     public ActorModel getPlayerModel() {
         return playerModel;
-    }
-
-    public String getMapString() {
-        return gameStateModel.getMapString();
     }
 
     public int getGameId() {

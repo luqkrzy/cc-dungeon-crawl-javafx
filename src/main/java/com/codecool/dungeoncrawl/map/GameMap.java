@@ -1,11 +1,12 @@
 package com.codecool.dungeoncrawl.map;
-import com.codecool.dungeoncrawl.logic.actors.*;
+
+import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class GameMap {
     private final int width;
@@ -108,33 +109,6 @@ public class GameMap {
 
     public void setMonsters(List<Monster> monsters) {
         this.monsters = monsters;
-    }
-
-    public String layoutToString() {
-        StringJoiner mapString = new StringJoiner("\n");
-        mapString.add(width + " " + height);
-        for (int y = 0; y < height; y++) {
-            StringBuilder r = new StringBuilder();
-            for (int x = 0; x < width; x++) {
-                if (cells[x][y].getItem() instanceof Key) r.append(".");
-                else if (cells[x][y].getItem() instanceof Sword) r.append(".");
-                else if (cells[x][y].getItem() instanceof Armor) r.append(".");
-                else if (cells[x][y].getItem() instanceof HP) r.append(".");
-                else if (cells[x][y].getActor() instanceof Ghost) r.append(".");
-                else if (cells[x][y].getActor() instanceof Skeleton) r.append(".");
-                else if (cells[x][y].getActor() instanceof Player) r.append(".");
-                else if (cells[x][y].getActor() instanceof Mage) r.append(".");
-                else if (cells[x][y].getType().equals(CellType.EMPTY)) r.append(" ");
-                else if (cells[x][y].getType().equals(CellType.FLOOR)) r.append(".");
-                else if (cells[x][y].getType().equals(CellType.WALL)) r.append("#");
-                else if (cells[x][y].getType().equals(CellType.DOORS)) r.append("d");
-                else if (cells[x][y].getType().equals(CellType.OPENDOORS)) r.append("o");
-                else if (cells[x][y].getType().equals(CellType.STAIRS)) r.append("{");
-                else if (cells[x][y].getType().equals(CellType.SPIKE)) r.append("<");
-            }
-            mapString.add(r.toString());
-        }
-        return mapString.toString();
     }
 
     public void setItems(List<Item> items) {

@@ -46,7 +46,7 @@ public class GameDatabaseManager {
         ActorModel actorModel = new ActorModel(player);
         actorModel.setId(gameStateDao.getPlayerIdBySaveName(saveName));
         playerDao.update(actorModel);
-        GameStateModel gameStateModel = new GameStateModel(actorModel.getId(), player.getMap().getMapName(), saveName, player.getMap().layoutToString());
+        GameStateModel gameStateModel = new GameStateModel(actorModel.getId(), player.getMap().getMapName(), saveName);
         gameStateDao.update(gameStateModel);
         inventoryDao.update(new InventoryModel(actorModel.getId(), actorModel.getInventory()));
         itemDao.update(actorModel.getId(), player.getMap().getItems());
@@ -74,8 +74,8 @@ public class GameDatabaseManager {
     }
 
     private void saveGameState(int playerId, String saveName, Player player) {
-        System.out.println(player.getMap().layoutToString());
-        GameStateModel gameStateModel = new GameStateModel(playerId, player.getMap().getMapName(), saveName, player.getMap().layoutToString());
+        // System.out.println(player.getMap().layoutToString());
+        GameStateModel gameStateModel = new GameStateModel(playerId, player.getMap().getMapName(), saveName);
         gameStateDao.add(gameStateModel);
         System.out.println("GameState id: " + gameStateModel.getId());
     }

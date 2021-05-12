@@ -3,7 +3,10 @@ package com.codecool.dungeoncrawl.controller;
 import com.codecool.dungeoncrawl.db.GameDatabaseManager;
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.menu.MenuItemTitle;
-import com.codecool.dungeoncrawl.gui.window.*;
+import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
+import com.codecool.dungeoncrawl.gui.window.DisplayInventory;
+import com.codecool.dungeoncrawl.gui.window.RightGridPane;
+import com.codecool.dungeoncrawl.gui.window.SaveWindow;
 import com.codecool.dungeoncrawl.logic.engine.Engine;
 import com.codecool.dungeoncrawl.logic.engine.KeyboardHandler;
 import com.codecool.dungeoncrawl.map.GameMap;
@@ -17,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class GameController {
@@ -38,7 +40,7 @@ public class GameController {
 
     private void build() {
         this.dbm = new GameDatabaseManager();
-        this.map = MapLoader.loadMap("/map.txt", "anonymous");
+        this.map = MapLoader.loadMap("/map_01.txt", "anonymous");
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);
@@ -52,7 +54,7 @@ public class GameController {
 
     void build(GameSaveModel gameSaveModel) {
         this.dbm = new GameDatabaseManager();
-        this.map = MapLoader.loadMap(gameSaveModel);
+        this.map = MapLoader.loadMap(gameSaveModel.getCurrentMap() + "_empty.txt", gameSaveModel.getPlayerName());
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

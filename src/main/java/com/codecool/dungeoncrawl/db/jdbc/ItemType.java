@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.db.jdbc;
 
 import com.codecool.dungeoncrawl.logic.items.*;
-import com.codecool.dungeoncrawl.model.ItemModel;
 
 interface ItemType {
 

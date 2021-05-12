@@ -8,22 +8,19 @@ public class GameStateModel extends BaseModel {
     private String savedAt;
     private String currentMap;
     private String saveName;
-    private String mapString;
 
-    public GameStateModel(int playerId, String currentMap, String saveName, String mapString) {
+    public GameStateModel(int playerId, String currentMap, String saveName) {
         this.playerId = playerId;
         this.currentMap = currentMap;
         this.saveName = saveName;
-        this.mapString = mapString;
     }
 
-    public GameStateModel(int playerId, Timestamp savedAt, String currentMap, String saveName, String playerName, String mapString) {
+    public GameStateModel(int playerId, Timestamp savedAt, String currentMap, String saveName, String playerName) {
         this.playerId = playerId;
         this.currentMap = currentMap;
         this.saveName = saveName;
         this.savedAt = formatDate(savedAt);
         this.playerName = playerName;
-        this.mapString = mapString;
     }
 
     private String formatDate(Timestamp savedAt) {
@@ -53,10 +50,6 @@ public class GameStateModel extends BaseModel {
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public String getMapString() {
-        return mapString;
     }
 }
 

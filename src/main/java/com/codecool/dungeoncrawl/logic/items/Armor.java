@@ -16,7 +16,6 @@ public class Armor extends Item {
         super(name);
         this.defense = randomNumberInRange(2, 5);
         this.itemType = ItemType.ARMOR;
-
     }
 
     public Armor(int defense) {
@@ -54,3 +53,5 @@ public class Armor extends Item {
         player.addItem(this);
     }
 }
+
+
