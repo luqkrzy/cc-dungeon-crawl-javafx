@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.gui.window.DisplayInventory;
-import com.codecool.dungeoncrawl.gui.GameController;
+import com.codecool.dungeoncrawl.controller.GameController;
 import com.codecool.dungeoncrawl.map.GameMap;
 import javafx.scene.input.KeyEvent;
 

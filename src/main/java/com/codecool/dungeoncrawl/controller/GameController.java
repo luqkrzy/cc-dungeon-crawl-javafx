@@ -1,4 +1,4 @@
-package com.codecool.dungeoncrawl.gui;
+package com.codecool.dungeoncrawl.controller;
 
 import com.codecool.dungeoncrawl.db.GameDatabaseManager;
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
@@ -56,7 +56,7 @@ public class GameController {
     }
 
 
-    private void build(GameSaveModel gameSaveModel) {
+    void build(GameSaveModel gameSaveModel) {
         this.dbm = new GameDatabaseManager();
         this.map = MapLoader.loadMap(gameSaveModel);
         this.canvas = new Canvas(
@@ -134,17 +134,6 @@ public class GameController {
         return item;
     }
 
-    private void run() {
-        BorderPane borderPane = setUpBorderPane();
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
-        setUpGameOverMenu();
-        scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
-        primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
-        primaryStage.show();
-        refresh();
-    }
-
     private Monster loadMonsters(ActorModel monster, GameMap gameMap) {
         Monster mon = null;
         switch (monster.getType()) {
@@ -153,6 +142,17 @@ public class GameController {
             case "Mage" -> mon = new Mage(monster, gameMap);
         }
         return mon;
+    }
+
+    void run() {
+        BorderPane borderPane = setUpBorderPane();
+        Scene scene = new Scene(borderPane);
+        primaryStage.setScene(scene);
+        setUpGameOverMenu();
+        scene.setOnKeyPressed(keyboardHandler::onKeyPressed);
+        primaryStage.setTitle(MenuItemTitle.DUNGEON_CRAWL.getTitle());
+        primaryStage.show();
+        refresh();
     }
 
     private BorderPane setUpBorderPane() {

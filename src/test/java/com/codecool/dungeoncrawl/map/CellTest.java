@@ -2,9 +2,7 @@ package com.codecool.dungeoncrawl.map;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HP;
-import com.codecool.dungeoncrawl.logic.items.Key;
 import com.codecool.dungeoncrawl.logic.items.Sword;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +31,7 @@ class CellTest {
     }
 
     @Test
-    void isItem() {
+    void isItem_isItemAtSpecificCell() {
         Sword sword = new Sword(5);
         Cell cell = map.getCell(0, 1);
         Cell cell2 = map.getCell(1, 1);
@@ -44,7 +42,7 @@ class CellTest {
     }
 
     @Test
-    void isActor() {
+    void isActor_actorPlacedAtSpecificCell() {
         new Skeleton(map.getCell(0, 0));
         assertTrue(map.getCell(0, 0).isActor());
         assertFalse(map.getCell(1, 0).isActor());
@@ -52,7 +50,7 @@ class CellTest {
     }
 
     @Test
-    void isActorAndItemSamePosition_actor_andItem_atSame_XY() {
+    void isActorAndItemSamePosition_actorAndItemAtSameXY() {
         Cell cell = map.getCell(1, 2);
         HP hp = new HP(cell, 5);
         Player player = new Player(cell);

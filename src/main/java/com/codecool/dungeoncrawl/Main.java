@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.gui.GameController;
+import com.codecool.dungeoncrawl.controller.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
