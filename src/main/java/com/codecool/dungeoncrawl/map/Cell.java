@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell implements Drawable {
+public class Cell implements Drawable, Passable {
     private CellType type;
     private Actor actor;
     private Item item;

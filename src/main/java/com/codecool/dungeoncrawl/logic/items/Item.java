@@ -2,11 +2,12 @@ package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.map.Cell;
 import com.codecool.dungeoncrawl.map.Drawable;
+import com.codecool.dungeoncrawl.map.Passable;
 
 import java.lang.reflect.Field;
 import java.util.Random;
 
-public abstract class Item implements Drawable, ItemValue {
+public abstract class Item implements Drawable, Passable, ItemValue, ModifyPlayer {
     private Cell cell;
     private String name;
     protected ItemType itemType;
@@ -63,14 +64,13 @@ public abstract class Item implements Drawable, ItemValue {
         final StringBuilder sb = new StringBuilder();
         for (Field field : this.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            Object value = null;
+            Object value;
             try {
                 value = field.get(this);
                 if (value != null) {
-                    sb.append(field.getName() + ":" + value + ",");
+                    sb.append(field.getName()).append(":").append(value).append(",");
                 }
             } catch (IllegalAccessException ignored) {
-
             }
         }
         return sb.toString();

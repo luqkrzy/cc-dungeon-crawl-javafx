@@ -1,6 +1,9 @@
 package com.codecool.dungeoncrawl.logic.items;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
+import com.codecool.dungeoncrawl.map.CellType;
+import com.codecool.dungeoncrawl.map.GameMap;
 
 public class Key extends Item {
     private int doorX;
@@ -66,5 +69,12 @@ public class Key extends Item {
     public double getValue() {
         String keyCoord = doorX + "." + doorY;
         return Double.parseDouble(keyCoord);
+    }
+
+    @Override
+    public void modifyPlayerSkills(Player player) {
+        GameMap map = player.getMap();
+        map.getCell(doorX, doorY).setType(CellType.OPENDOORS);
+        player.addItem(this);
     }
 }

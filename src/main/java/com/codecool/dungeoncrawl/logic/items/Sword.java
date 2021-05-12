@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
 
 public class Sword extends Item {
@@ -46,5 +47,11 @@ public class Sword extends Item {
     @Override
     public double getValue() {
         return damage;
+    }
+
+    @Override
+    public void modifyPlayerSkills(Player player) {
+        player.setAttack(player.getAttack() + damage);
+        player.addItem(this);
     }
 }

@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.map.Cell;
 
 public class HP extends Item {
@@ -45,5 +46,10 @@ public class HP extends Item {
     @Override
     public double getValue() {
         return healthPoints;
+    }
+
+    @Override
+    public void modifyPlayerSkills(Player player) {
+        player.setHealth(player.getHealth() + healthPoints);
     }
 }

@@ -14,7 +14,6 @@ import javafx.stage.StageStyle;
 public class SaveWindow {
     private final static Stage savePopup = new Stage(StageStyle.DECORATED);
 
-
     public static String popUp() {
         savePopup.setTitle(MenuItemTitle.SAVE.getTitle());
         Label saveName = new Label(MenuItemTitle.SAVE_NAME.getTitle());

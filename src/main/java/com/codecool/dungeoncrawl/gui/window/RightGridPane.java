@@ -34,7 +34,6 @@ public class RightGridPane extends Pane {
         pickUpBtn.setOnAction(actionEvent -> {
             ui.getChildren().remove(pickUpBtn);
             Player player = (Player) cell.getActor();
-
             player.addToInventory(cell.getItem());
         });
     }

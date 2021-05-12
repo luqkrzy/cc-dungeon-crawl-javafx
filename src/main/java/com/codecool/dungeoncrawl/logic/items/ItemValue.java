@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-public interface ItemValue {
+interface ItemValue {
 
     double getValue();
 

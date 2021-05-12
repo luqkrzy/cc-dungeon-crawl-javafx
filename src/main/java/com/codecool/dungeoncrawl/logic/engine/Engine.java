@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic.engine;
 
 import com.codecool.dungeoncrawl.gui.menu.GameMenu;
 import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
-import com.codecool.dungeoncrawl.gui.window.DisplayGameOver;
 import com.codecool.dungeoncrawl.gui.window.RightGridPane;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import com.codecool.dungeoncrawl.logic.actors.Player;
@@ -18,15 +17,13 @@ public class Engine {
 
     private GameMap map;
     private final GraphicsContext context;
-    private final DisplayGameOver displayGameOver;
     private final RightGridPane rightGridPane;
     private final KeyboardHandler keyboardHandler;
     private GameMenu gameOverMenu;
 
-    public Engine(GameMap map, GraphicsContext context, DisplayGameOver displayGameOver, RightGridPane rightGridPane, KeyboardHandler keyboardHandler) {
+    public Engine(GameMap map, GraphicsContext context, RightGridPane rightGridPane, KeyboardHandler keyboardHandler) {
         this.map = map;
         this.context = context;
-        this.displayGameOver = displayGameOver;
         this.rightGridPane = rightGridPane;
         this.keyboardHandler = keyboardHandler;
     }

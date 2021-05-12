@@ -35,10 +35,10 @@ public class LoadGameController {
     }
 
     private Item loadItems(GameMap map, ItemModel itemModel) {
-        return getItem(map, itemModel.getX(), itemModel.getY(), itemModel.getItemType(), itemModel.getValue());
+        return initItem(map, itemModel.getX(), itemModel.getY(), itemModel.getItemType(), itemModel.getValue());
     }
 
-    private Item getItem(GameMap gameMap, int x, int y, int type, double value) {
+    private Item initItem(GameMap gameMap, int x, int y, int type, double value) {
         Item item = null;
         switch (type) {
             case 1 -> item = new Key(new Cell(gameMap, x, y, CellType.FLOOR), value);

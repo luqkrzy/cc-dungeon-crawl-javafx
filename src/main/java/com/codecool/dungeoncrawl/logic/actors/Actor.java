@@ -2,16 +2,13 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.gui.window.BottomGridPane;
 import com.codecool.dungeoncrawl.logic.engine.FightEngine;
 import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.map.Cell;
-import com.codecool.dungeoncrawl.map.CellType;
-import com.codecool.dungeoncrawl.map.Drawable;
-import com.codecool.dungeoncrawl.map.GameMap;
+import com.codecool.dungeoncrawl.map.*;
 import com.codecool.dungeoncrawl.model.ActorModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Actor implements Drawable {
+public abstract class Actor implements Drawable, Passable {
     protected String name;
     protected Cell cell;
     protected int health = 10;
@@ -65,7 +62,7 @@ public abstract class Actor implements Drawable {
         return defense;
     }
 
-    protected void setDefense(int defense) {
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 
@@ -73,7 +70,7 @@ public abstract class Actor implements Drawable {
         return attack;
     }
 
-    protected void setAttack(int attack) {
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
