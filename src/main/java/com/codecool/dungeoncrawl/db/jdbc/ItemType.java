@@ -16,8 +16,4 @@ interface ItemType {
         }
         return item;
     }
-
-    default ItemModel initItemModel(int x, int y, int type, double value) {
-        return new ItemModel(x, y, type, value);
-    }
 }

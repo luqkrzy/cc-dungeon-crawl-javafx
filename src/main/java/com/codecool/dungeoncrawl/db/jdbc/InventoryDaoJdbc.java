@@ -28,7 +28,6 @@ public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType 
             statement.setInt(2, item.getItemType());
             statement.setDouble(3, item.getValue());
             statement.executeUpdate();
-            int a = 1;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -69,10 +68,5 @@ public class InventoryDaoJdbc extends DaoJdbc implements InventoryDao, ItemType 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public List<InventoryModel> getAll() {
-        return null;
     }
 }

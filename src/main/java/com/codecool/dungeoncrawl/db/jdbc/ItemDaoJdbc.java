@@ -69,7 +69,7 @@ public class ItemDaoJdbc extends DaoJdbc implements ItemDao, ItemType {
                 int y = rs.getInt("y");
                 int type = rs.getInt("item_type");
                 double value = rs.getDouble("value");
-                ItemModel itemModel = initItemModel(x, y, type, value);
+                ItemModel itemModel = new ItemModel(x, y, type, value);
                 items.add(itemModel);
             }
             return items;

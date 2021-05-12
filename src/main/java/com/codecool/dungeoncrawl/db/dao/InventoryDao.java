@@ -14,7 +14,4 @@ public interface InventoryDao {
     void update(InventoryModel inventoryModel);
 
     InventoryModel get(int id);
-
-    List<InventoryModel> getAll();
-
 }

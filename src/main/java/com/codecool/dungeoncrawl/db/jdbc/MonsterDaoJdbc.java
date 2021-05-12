@@ -35,7 +35,7 @@ public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
             statement.setDouble(9, monster.getFirstItem().getValue());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -69,24 +69,25 @@ public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
 
     @Override
     public List<ActorModel> getAll(int playerId) {
-        List<ActorModel> monsters = new ArrayList<>();
+        List<ActorModel> monsters;
         try (Connection connection = dataSource.getConnection()) {
             final String sql = "SELECT * FROM monster WHERE player_id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, playerId);
             ResultSet rs = statement.executeQuery();
+            monsters = new ArrayList<>();
             while (rs.next()) {
                 ActorModel monsterModel = getMonsterModel(rs);
                 monsters.add(monsterModel);
             }
-            return monsters;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return monsters;
     }
 
     private ActorModel getMonsterModel(ResultSet rs) {
-        ActorModel monsterModel = null;
+        ActorModel monsterModel;
         try {
             monsterModel = new ActorModel(
                     null,
@@ -102,7 +103,7 @@ public class MonsterDaoJdbc extends DaoJdbc implements MonsterDao, ItemType {
             monsterModel.addToInventory(item);
             monsterModel.setId(rs.getInt(1));
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return monsterModel;
     }

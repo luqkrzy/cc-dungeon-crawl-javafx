@@ -10,7 +10,4 @@ public interface PlayerDao {
     void update(ActorModel player);
 
     ActorModel get(int id);
-
-    List<ActorModel> getAll();
-
 }

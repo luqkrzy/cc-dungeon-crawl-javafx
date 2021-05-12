@@ -93,7 +93,6 @@ public class GameDatabaseManager {
         return saveNameExist;
     }
 
-
     public GameSaveModel loadGameSaveModel(GameStateModel gameStateModel) {
         ActorModel playerModel = playerDao.get(gameStateModel.getPlayerId());
         InventoryModel inventoryModel = inventoryDao.get(gameStateModel.getPlayerId());

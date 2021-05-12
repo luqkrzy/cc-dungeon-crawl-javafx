@@ -55,13 +55,14 @@ public class PlayerDaoJdbc extends DaoJdbc implements PlayerDao {
 
     @Override
     public ActorModel get(int id) {
+        ActorModel playerModel;
         try (Connection connection = dataSource.getConnection()) {
             final String sql = "SELECT * FROM player WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (!rs.next()) return null;
-            ActorModel playerModel = new ActorModel(
+            playerModel = new ActorModel(
                     rs.getString("player_name"),
                     "Player",
                     rs.getInt("x"),
@@ -70,15 +71,10 @@ public class PlayerDaoJdbc extends DaoJdbc implements PlayerDao {
                     rs.getInt("attack"),
                     rs.getInt("hp"));
             playerModel.setId(rs.getInt(1));
-            return playerModel;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
-    }
+        return playerModel;
 
-    @Override
-    public List<ActorModel> getAll() {
-        return null;
     }
 }
