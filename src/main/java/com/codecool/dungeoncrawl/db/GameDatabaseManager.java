@@ -20,6 +20,10 @@ public class GameDatabaseManager {
     private MonsterDao monsterDao;
     private ItemDao itemDao;
 
+    public GameDatabaseManager() {
+        setup();
+    }
+
     public void setup() {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);

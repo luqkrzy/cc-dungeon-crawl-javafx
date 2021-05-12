@@ -52,7 +52,6 @@ public class GameController {
 
     void build(GameSaveModel gameSaveModel) {
         this.dbm = new GameDatabaseManager();
-        dbm.setup();
         this.map = MapLoader.loadMap(gameSaveModel);
         this.canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
@@ -67,14 +66,10 @@ public class GameController {
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        connectToDatabase();
         GameMenu mainMenu = new GameMenu(this, MenuItemTitle.DUNGEON_CRAWL);
         mainMenu.initMainMenu();
     }
 
-    private void connectToDatabase() {
-        dbm.setup();
-    }
 
     private void setUpGameOverMenu() {
         GameMenu gameOverMenu = new GameMenu(this, MenuItemTitle.GAME_OVER);
